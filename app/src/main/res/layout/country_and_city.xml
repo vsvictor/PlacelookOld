@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvFindHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/client_find_top"
+        android:text="@string/find"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+    <LinearLayout
+        android:id="@+id/llCountryAndCity"
+        android:layout_below="@id/tvFindHeader"
+        android:layout_marginLeft="@dimen/client_ll_left"
+        android:layout_marginRight="@dimen/client_ll_right"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/client_ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <AutoCompleteTextView
+            android:textSize="@dimen/autocomp_textsize"
+            android:background="@drawable/editbox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/acCountry" />
+        <AutoCompleteTextView
+            android:layout_marginTop="@dimen/autocomp_middle"
+            android:textSize="@dimen/autocomp_textsize"
+            android:background="@drawable/editbox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/acCity" />
+        <RelativeLayout
+            android:layout_marginTop="@dimen/button_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/rlFind"
+                android:layout_marginLeft="@dimen/button_left"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_alignParentLeft="true"
+                android:background="@color/green_gray">
+                <TextView
+                    android:id="@+id/tvAccept"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/client_find_button"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rlViewMap"
+                android:layout_marginRight="@dimen/button_right"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
+                android:layout_alignParentRight="true"
+                android:background="@color/gray_light" >
+                <TextView
+                    android:id="@+id/tvViewMap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/client_view_map_button"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

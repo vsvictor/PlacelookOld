@@ -1,0 +1,258 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/record_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="bottom|left" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:id="@+id/rlStopTime"
+            android:layout_width="190dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="35dp"
+            android:layout_marginLeft="15dp" >
+
+            <ImageView
+                android:id="@+id/ivStopTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/stop_time" />
+
+            <TextView
+                android:id="@+id/tvStopTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="24dp"
+                android:text="@string/time_balance_zerro"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlStop"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_alignBottom="@id/rlStopTime"
+            android:layout_toRightOf="@id/rlStopTime" >
+
+            <ImageView
+                android:id="@+id/ivStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/stop" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlGo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" >
+
+            <ImageView
+                android:id="@+id/ivGo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/go" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" >
+
+            <ImageView
+                android:id="@+id/ivView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/view_yellow" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlStopCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" >
+
+            <ImageView
+                android:id="@+id/ivStopCenter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/stop_center" />
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/rlToUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/rlGo"
+            android:layout_centerInParent="true" >
+
+            <ImageView
+                android:id="@+id/ivToUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/to_up" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlToUpYellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/rlView"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" >
+
+            <ImageView
+                android:id="@+id/ivToUpYellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/to_up_yellow" />
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/rlToDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlGo"
+            android:layout_centerInParent="true" >
+
+            <ImageView
+                android:id="@+id/ivToDown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/to_down" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlToDownYellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlView"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" >
+
+            <ImageView
+                android:id="@+id/ivToDownYellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/to_down_yellow" />
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/rlToLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@id/rlGo" >
+
+            <ImageView
+                android:id="@+id/ivToLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/to_left" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlToLeftYellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@id/rlView"
+            android:visibility="invisible" >
+
+            <ImageView
+                android:id="@+id/ivToLeftYellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/to_left_yellow" />
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/rlToRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/rlGo" >
+
+            <ImageView
+                android:id="@+id/ivToRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/to_right" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlToRightYellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/rlView"
+            android:visibility="invisible" >
+
+            <ImageView
+                android:id="@+id/ivToRightYellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/to_right_yellow" />
+
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/rlMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/message_rectangle" >
+
+            <ImageView
+                android:id="@+id/ivMessagePicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
+                android:src="@drawable/message_picture" />
+
+            <EditText
+                android:id="@+id/edMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@id/ivMessagePicture"
+                android:background="@drawable/edit_message"
+                android:ems="10"
+                android:inputType="textMultiLine" >
+
+                <requestFocus />
+            </EditText>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

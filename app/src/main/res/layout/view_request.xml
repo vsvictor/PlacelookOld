@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rlRequestTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" >
+
+        <TextView
+            android:id="@+id/tvRequestTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/request_title"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlRequestTitle"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="66dp"
+        android:layout_marginTop="40dp" >
+
+        <TextView
+            android:id="@+id/tvTimeInMinutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/time_minutes"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+
+        <RelativeLayout
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" >
+
+            <EditText
+                android:id="@+id/edMinutes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/editbox"
+                android:gravity="center_vertical|center_horizontal"
+                android:inputType="number" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlTime"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp" >
+
+        <EditText
+            android:id="@+id/edGoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/editbox"
+            android:inputType="textMultiLine"
+            android:textColor="@color/white" >
+
+            <requestFocus />
+        </EditText>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rlSend"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/rlGoal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@color/gray_light" >
+
+        <TextView
+            android:id="@+id/tvSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/view_request_send"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

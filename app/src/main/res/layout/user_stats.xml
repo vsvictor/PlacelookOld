@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="@dimen/time_balance_height"
+    android:id="@+id/rlUserStats">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stats"
+        android:id="@+id/tvUserStats"
+        android:layout_marginLeft="@dimen/time_balance_left"
+        android:layout_marginTop="@dimen/time_balance_top"
+        android:textColor="@color/white" />
+
+    <RelativeLayout
+        android:layout_below="@id/tvUserStats"
+        android:id="@+id/rlUserStatsPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="@dimen/time_balance_pic_width"
+        android:layout_height="@dimen/time_balance_pic_height"
+        android:id="@+id/ivStats"
+        android:layout_marginLeft="@dimen/time_balance_pic_left"
+        android:layout_marginTop="@dimen/time_balance_pic_top"
+        android:src="@drawable/stats"
+        android:scaleType="fitXY"
+        android:layout_centerVertical="true" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/time_balance_value_left"
+            android:layout_toRightOf="@id/ivStats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/view_stats"
+            android:id="@+id/tvUserStatsText"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:layout_width="@dimen/user_lang_next_width"
+            android:layout_height="@dimen/user_lang_next_height"
+            android:id="@+id/ivSelectStats"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/next"
+            android:layout_marginRight="@dimen/time_balance_add_right" />
+    </RelativeLayout>
+</RelativeLayout>

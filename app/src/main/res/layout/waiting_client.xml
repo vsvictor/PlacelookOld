@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/waiting_height"
+    android:id="@+id/rlWaitingClient">
+
+    <RelativeLayout
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlImageWaiting">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivWaiting"
+            android:src="@drawable/waiting"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ivWaiting"
+            android:textColor="@color/white"
+            android:id="@+id/tvWaitingClient"
+            android:text="@string/waiting_for_clients"
+            android:textSize="@dimen/waiting_textsize"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/waitin_image_left" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

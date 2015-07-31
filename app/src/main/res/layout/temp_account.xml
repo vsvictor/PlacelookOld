@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="@dimen/temp_account_height"
+    android:id="@+id/rlTempAccount">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/account"
+        android:id="@+id/tvAccount"
+        android:textColor="@color/white"
+        android:layout_marginLeft="@dimen/temp_account_header_left"
+        android:layout_marginTop="@dimen/temp_account_header_top" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/temp_account_panel_height"
+        android:layout_marginLeft="@dimen/temp_account_panel_left"
+        android:layout_marginTop="@dimen/temp_account_panel_top"
+        android:layout_marginRight="@dimen/temp_account_panel_right"
+        android:layout_marginBottom="@dimen/temp_account_panel_bottom"
+        android:background="@drawable/rect_50"
+        android:id="@+id/rlPanel">
+
+        <ImageView
+            android:layout_width="@dimen/temp_account_alert_width"
+            android:layout_height="@dimen/temp_account_alert_height"
+            android:id="@+id/ivAlert"
+            android:src="@drawable/alert"
+            android:layout_marginLeft="@dimen/temp_account_alert_left"
+            android:layout_marginTop="@dimen/temp_account_alert_top"
+            android:scaleType="fitXY"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ivAlert"
+            android:text="@string/account_temp_warning"
+            android:id="@+id/tvWarning"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/middle_step"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="@dimen/temp_account_register_width"
+        android:layout_height="@dimen/temp_account_register_height"
+        android:text="@string/register"
+        android:id="@+id/bRegister"
+        android:layout_marginLeft="@dimen/temp_account_register_left"
+        android:layout_marginTop="@dimen/temp_account_register_top"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/temp_account_register_bottom"
+        android:background="@color/gray_light" />
+
+    <Button
+        android:layout_width="@dimen/temp_account_login_width"
+        android:layout_height="@dimen/temp_account_login_height"
+        android:text="@string/login"
+        android:id="@+id/bLogin"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/temp_account_login_top"
+        android:layout_marginRight="@dimen/temp_account_login_right"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/temp_account_login_bottom"
+        android:background="@color/gray_light" />
+
+</RelativeLayout>

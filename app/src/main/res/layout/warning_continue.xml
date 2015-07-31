@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <CheckBox
+        android:id="@+id/cbIWarninged"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/warning_cb_top"
+        android:button="@drawable/cb"
+        android:checked="true"
+        android:text="@string/warninged_1"
+        android:textColor="@color/gray_light"
+        android:textSize="18sp"
+        android:layout_marginLeft="@dimen/warning_cb_left"
+        android:layout_marginRight="@dimen/warning_cb_right" />
+
+    <RelativeLayout
+        android:id="@+id/rlContinue"
+        android:layout_width="@dimen/warning_button_width"
+        android:layout_height="@dimen/warning_button_height"
+        android:layout_below="@id/cbIWarninged"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/gray_button">
+
+        <TextView
+            android:id="@+id/tvContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/w_continue"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/ivCaretContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@id/tvContinue"
+            android:src="@drawable/next" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

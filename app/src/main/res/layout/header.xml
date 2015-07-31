@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="@dimen/header_height"
+    android:id="@+id/rlHeader">
+    <RelativeLayout
+        android:id="@+id/rlPress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
+    <ImageView
+        android:visibility="invisible"
+        android:src="@drawable/prev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/small_step"
+        android:id="@+id/ivPrev" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:id="@+id/rlLogo"
+        android:layout_marginLeft="@dimen/header_logo_left">
+
+        <ImageView
+            android:layout_width="@dimen/header_logo_width"
+            android:layout_height="@dimen/header_logo_height"
+            android:id="@+id/ivLogo"
+            android:src="@drawable/logo_small"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ivLogo"
+            android:layout_marginLeft="@dimen/small_step"
+            android:text="@string/app_name"
+            android:id="@+id/tvLogo"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/rlUser"
+        android:layout_marginRight="@dimen/header_user_right">
+
+        <ImageView
+            android:layout_width="@dimen/header_user_width"
+            android:layout_height="@dimen/header_user_height"
+            android:id="@+id/ivUser"
+            android:src="@drawable/user"
+            android:scaleType="fitXY" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dirivider_height"
+        android:id="@+id/rlDirivider"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/diriveder"></RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="@dimen/footer_height"
+    android:id="@+id/rlFooter">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/rlTimeBalans"
+        android:layout_alignParentBottom="false"
+        android:layout_marginLeft="@dimen/footer_timebalans_left">
+
+        <ImageView
+            android:layout_width="@dimen/footer_timebalans_width"
+            android:layout_height="@dimen/footer_timebalans_height"
+            android:id="@+id/ivTimeBalans"
+            android:src="@drawable/balance"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ivTimeBalans"
+            android:layout_marginLeft="@dimen/middle_step"
+            android:text="@string/time_balance"
+            android:id="@+id/tvTimeBalance"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tvTimeBalance"
+            android:layout_marginLeft="@dimen/small_step"
+            android:text="00:00:00"
+            android:id="@+id/tvTimeBalanceValue"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="@dimen/footer_addtimebalans_width"
+        android:layout_height="@dimen/footer_addtimebalans_height"
+        android:id="@+id/ivAddBalance"
+        android:layout_marginRight="@dimen/footer_addbalans_right"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/add_balance"
+        android:scaleType="fitXY" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dirivider_height"
+        android:id="@+id/rlDirivider"
+        android:background="@drawable/diriveder"
+        android:layout_alignParentTop="true"></RelativeLayout>
+</RelativeLayout>

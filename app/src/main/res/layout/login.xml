@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rlRegister"
+    android:background="@drawable/background">
+
+    <RelativeLayout
+        android:layout_width="@dimen/earth_width"
+        android:layout_height="@dimen/earth_height"
+        android:id="@+id/rlEarth"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/reg_earht_top">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ivEarth"
+            android:src="@drawable/earth"
+            android:scaleType="fitXY" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlPlacelook"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/reg_placelook_top"
+        android:layout_marginLeft="@dimen/placelook_left">
+
+        <ImageView
+            android:layout_width="@dimen/big_logo_width"
+            android:layout_height="@dimen/big_logo_height"
+            android:id="@+id/ivBigLogo"
+            android:src="@drawable/logo_big" />
+
+        <RelativeLayout
+            android:layout_toRightOf="@+id/ivBigLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rlPlacelookText">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/app_title"
+                android:id="@+id/tvPlacelook"
+                android:textColor="@color/white"
+                android:textSize="@dimen/placelook_textsize" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvPlacelook"
+                android:text="@string/view_the_world"
+                android:id="@+id/tvViewTheWirld"
+                android:focusableInTouchMode="false"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/view_the_world__top"
+                android:textSize="@dimen/view_the_world__textsize" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlEarth"
+        android:id="@+id/rlLogin"
+        android:layout_marginTop="@dimen/reg_registration_top">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/login_log"
+            android:id="@+id/tvLogin"
+            android:textColor="@color/white"
+            android:textSize="@dimen/reg_registration_textsize" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlLogin"
+        android:id="@+id/rlEdited">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/edEmail"
+            android:layout_marginLeft="@dimen/reg_email_left"
+            android:layout_marginRight="@dimen/reg_email_right"
+            android:layout_marginTop="@dimen/reg_email_top"
+            android:background="@drawable/editbox" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:layout_below="@id/edEmail"
+            android:id="@+id/edPassword"
+            android:layout_marginRight="@dimen/reg_email_right"
+            android:layout_marginLeft="@dimen/reg_email_left"
+            android:layout_marginTop="@dimen/reg_email_top"
+            android:background="@drawable/editbox" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlEdited"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/rlSave"
+        android:layout_marginTop="@dimen/reg_term_panel_top">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:button="@drawable/cb"
+            android:checked="true"
+            android:id="@+id/cbSave" />
+        <TextView
+            android:text="@string/save_log"
+            android:layout_toRightOf="@id/cbSave"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvSave"
+            android:layout_marginLeft="@dimen/reg_term_text_left"
+            android:textColor="@color/white"
+            android:textSize="@dimen/reg_term_text_textsize" />
+    </RelativeLayout>
+    <Button
+        android:layout_width="@dimen/temp_account_login_width"
+        android:layout_height="@dimen/temp_account_login_height"
+        android:text="@string/login_log"
+        android:layout_marginTop="39dp"
+        android:id="@+id/bLogin"
+        android:background="@color/gray_light"
+        android:layout_below="@+id/rlSave"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/registration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bLogin"
+        android:layout_marginTop="@dimen/reg_already_top"
+        android:id="@+id/tvRegis"
+        android:textColor="@color/white"
+        android:textSize="@dimen/reg_term_text_textsize"
+        android:layout_marginLeft="@dimen/registration_log_left" />
+
+    <TextView
+        android:text="@string/i_forgot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bLogin"
+        android:layout_marginTop="@dimen/reg_already_top"
+        android:id="@+id/tvForgot"
+        android:textColor="@color/white"
+        android:textSize="@dimen/reg_term_text_textsize"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/registration_log_left"
+        android:layout_marginRight="@dimen/forgot_log_right" />
+
+</RelativeLayout>

@@ -1,0 +1,166 @@
+<resources>
+    <dimen name="activity_horizontal_margin">0dp</dimen>
+    <dimen name="activity_vertical_margin">0dp</dimen>
+
+    <dimen name="small_step">5dp</dimen>
+    <dimen name="middle_step">10dp</dimen>
+    <dimen name="big_step">15dp</dimen>
+    <dimen name="large_step">20dp</dimen>
+    <dimen name="dirivider_height">2dp</dimen>
+
+    <dimen name="header_textsize">30dp</dimen>
+    <dimen name="placelook_textsize">30dp</dimen>
+    <dimen name="view_the_world__textsize">15dp</dimen>
+    <dimen name="show_text_textsize">14dp</dimen>
+    <dimen name="view_text_textsize">14dp</dimen>
+    <dimen name="data_textsize">14dp</dimen>
+
+    <dimen name="header_height">48dp</dimen>
+    <dimen name="header_logo_height">30dp</dimen>
+    <dimen name="header_logo_width">25dp</dimen>
+    <dimen name="header_logo_left">16dp</dimen>
+    <dimen name="header_user_right">16dp</dimen>
+    <dimen name="header_user_height">32dp</dimen>
+    <dimen name="header_user_width">32dp</dimen>
+
+    <dimen name="footer_height">52dp</dimen>
+    <dimen name="footer_timebalans_left">16dp</dimen>
+    <dimen name="footer_timebalans_width">30dp</dimen>
+    <dimen name="footer_timebalans_height">30dp</dimen>
+    <dimen name="footer_addbalans_right">16dp</dimen>
+    <dimen name="footer_addtimebalans_width">24dp</dimen>
+    <dimen name="footer_addtimebalans_height">24dp</dimen>
+
+    <dimen name="main_height">520dp</dimen>
+    <dimen name="earth_height">140dp</dimen>
+    <dimen name="earth_width">200dp</dimen>
+    <dimen name="earth_top">20dp</dimen>
+    <dimen name="big_logo_width">55dp</dimen>
+    <dimen name="big_logo_height">70dp</dimen>
+    <dimen name="placelook_top">40dp</dimen>
+    <dimen name="placelook_left">10dp</dimen>
+    <dimen name="view_the_world__top">10dp</dimen>
+
+    <dimen name="operation_top">30dp</dimen>
+    <dimen name="show_width">82dp</dimen>
+    <dimen name="show_height">50dp</dimen>
+    <dimen name="show_left">56dp</dimen>
+    <dimen name="show_text_top">12dp</dimen>
+    <dimen name="show_text_left">68dp</dimen>
+    <dimen name="view_width">82dp</dimen>
+    <dimen name="view_height">50dp</dimen>
+    <dimen name="view_right">56dp</dimen>
+    <dimen name="view_text_top">12dp</dimen>
+    <dimen name="view_text_right">80dp</dimen>
+
+
+    <dimen name="data_height">110dp</dimen>
+    <dimen name="data_top">70dp</dimen>
+    <dimen name="data_left">16dp</dimen>
+    <dimen name="data_right">16dp</dimen>
+    <dimen name="data_text_top">20dp</dimen>
+
+    <dimen name="temp_account_height">185dp</dimen>
+    <dimen name="temp_account_header_left">16dp</dimen>
+    <dimen name="temp_account_header_top">5dp</dimen>
+    <dimen name="temp_account_panel_top">26dp</dimen>
+    <dimen name="temp_account_panel_bottom">60dp</dimen>
+    <dimen name="temp_account_panel_left">16dp</dimen>
+    <dimen name="temp_account_panel_right">16dp</dimen>
+    <dimen name="temp_account_panel_height">96dp</dimen>
+    <dimen name="temp_account_alert_height">40dp</dimen>
+    <dimen name="temp_account_alert_width">45dp</dimen>
+    <dimen name="temp_account_alert_left">16dp</dimen>
+    <dimen name="temp_account_alert_top">28dp</dimen>
+    <dimen name="temp_account_register_top">10dp</dimen>
+    <dimen name="temp_account_register_bottom">15dp</dimen>
+    <dimen name="temp_account_register_left">16dp</dimen>
+    <dimen name="temp_account_register_height">40dp</dimen>
+    <dimen name="temp_account_register_width">160dp</dimen>
+    <dimen name="temp_account_login_top">10dp</dimen>
+    <dimen name="temp_account_login_bottom">15dp</dimen>
+    <dimen name="temp_account_login_right">16dp</dimen>
+    <dimen name="temp_account_login_height">40dp</dimen>
+    <dimen name="temp_account_login_width">160dp</dimen>
+
+    <dimen name="perm_account_height">90dp</dimen>
+    <dimen name="perm_account_account_left">30dp</dimen>
+    <dimen name="perm_account_account_top">20dp</dimen>
+    <dimen name="perm_account_pic_top">10dp</dimen>
+    <dimen name="perm_account_pic_left">30dp</dimen>
+    <dimen name="perm_account_pic_width">30dp</dimen>
+    <dimen name="perm_account_pic_height">30dp</dimen>
+    <dimen name="perm_account_email_left">10dp</dimen>
+
+    <dimen name="time_balance_height">80dp</dimen>
+    <dimen name="time_balance_left">30dp</dimen>
+    <dimen name="time_balance_top">10dp</dimen>
+    <dimen name="time_balance_pic_left">30dp</dimen>
+    <dimen name="time_balance_pic_top">10dp</dimen>
+    <dimen name="time_balance_pic_width">30dp</dimen>
+    <dimen name="time_balance_pic_height">30dp</dimen>
+    <dimen name="time_balance_value_left">10dp</dimen>
+    <dimen name="time_balance_add_width">30dp</dimen>
+    <dimen name="time_balance_add_height">30dp</dimen>
+    <dimen name="time_balance_add_right">20dp</dimen>
+    <dimen name="user_lang_next_height">15dp</dimen>
+    <dimen name="user_lang_next_width">5dp</dimen>
+
+    <dimen name="reg_earht_top">40dp</dimen>
+    <dimen name="reg_placelook_top">60dp</dimen>
+    <dimen name="reg_registration_top">15dp</dimen>
+    <dimen name="reg_registration_textsize">30sp</dimen>
+    <dimen name="reg_email_left">40dp</dimen>
+    <dimen name="reg_email_right">40dp</dimen>
+
+    <dimen name="reg_email_top">40dp</dimen>
+    <dimen name="reg_term_panel_top">40dp</dimen>
+    <dimen name="reg_term_text_left">5dp</dimen>
+    <dimen name="reg_term_text_textsize">16sp</dimen>
+    <dimen name="reg_button_top">32dp</dimen>
+    <dimen name="reg_already_top">30dp</dimen>
+
+    <dimen name="registration_log_left">20dp</dimen>
+    <dimen name="forgot_log_right">20dp</dimen>
+
+
+    <dimen name="warning_header_top">20dp</dimen>
+    <dimen name="warning_header_rect_left">50dp</dimen>
+    <dimen name="warning_header_rect_right">50dp</dimen>
+    <dimen name="warning_header_left">20dp</dimen>
+    <dimen name="warning_header_pleft">30dp</dimen>
+    <dimen name="warning_header_pright">30dp</dimen>
+    <dimen name="warning_header_ptop">15dp</dimen>
+    <dimen name="warning_header_pbottom">15dp</dimen>
+    <dimen name="warning_header_textsize">36sp</dimen>
+    <dimen name="warning_cb_left">20dp</dimen>
+    <dimen name="warning_cb_right">20dp</dimen>
+    <dimen name="warning_cb_top">20dp</dimen>
+    <dimen name="warning_button_width">150dp</dimen>
+    <dimen name="warning_button_height">40dp</dimen>
+
+    <dimen name="waiting_height">110dp</dimen>
+    <dimen name="waiting_textsize">24sp</dimen>
+    <dimen name="waitin_image_width">50dp</dimen>
+    <dimen name="waitin_image_heigth">50dp</dimen>
+    <dimen name="waitin_image_left">20dp</dimen>
+    <dimen name="waitin_notify_left">30dp</dimen>
+    <dimen name="waitin_notify_dirivider_both">15dp</dimen>
+    <dimen name="waitin_minimize_text_left">20dp</dimen>
+    <dimen name="waitin_minimize_text_right">20dp</dimen>
+    <dimen name="waitin_minimize_top">20dp</dimen>
+    <dimen name="waitin_minimize_textsize">18sp</dimen>
+
+    <dimen name="client_find_top">30dp</dimen>
+    <dimen name="client_ll_top">45dp</dimen>
+    <dimen name="client_ll_left">20dp</dimen>
+    <dimen name="client_ll_right">20dp</dimen>
+    <dimen name="find_textsize">24sp</dimen>
+    <dimen name="autocomp_textsize">22sp</dimen>
+    <dimen name="autocomp_middle">45dp</dimen>
+    <dimen name="button_width">120dp</dimen>
+    <dimen name="button_height">40dp</dimen>
+    <dimen name="button_left">30dp</dimen>
+    <dimen name="button_right">30dp</dimen>
+    <dimen name="button_top">50dp</dimen>
+</resources>

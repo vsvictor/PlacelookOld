@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/llWaitingSettings">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlWaitingSettingsHeader"
+        android:layout_marginLeft="@dimen/waitin_notify_left">
+
+        <TextView
+            android:id="@+id/tvNotificationOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notification_options"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/waitin_notify_dirivider_both"
+            android:layout_marginRight="@dimen/waitin_notify_dirivider_both"
+            android:textSize="24sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dirivider_height"
+        android:id="@+id/rlDirivider1"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/diriveder_small"
+        android:layout_marginLeft="@dimen/waitin_notify_dirivider_both"
+        android:layout_marginRight="@dimen/waitin_notify_dirivider_both" />
+    <RelativeLayout
+        android:id="@+id/rlSound"
+        android:layout_width="match_parent"
+        android:layout_height="76dp">
+
+        <TextView
+            android:id="@+id/tvSoundSignal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:text="@string/sound_signal"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/tgSound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/toggle"
+            android:button="@drawable/toggle"
+            android:checked="true" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dirivider_height"
+        android:id="@+id/rlDirivider2"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/diriveder_small"
+        android:layout_marginLeft="@dimen/waitin_notify_dirivider_both"
+        android:layout_marginRight="@dimen/waitin_notify_dirivider_both" />
+    <RelativeLayout
+        android:id="@+id/rlVibration"
+        android:layout_width="match_parent"
+        android:layout_height="76dp">
+
+        <TextView
+            android:id="@+id/tvVibration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:text="@string/vibration"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/tgVibration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/toggle"
+            android:button="@drawable/toggle"
+            android:checked="false" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dirivider_height"
+        android:id="@+id/rlDirivider3"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/diriveder_small"
+        android:layout_marginLeft="@dimen/waitin_notify_dirivider_both"
+        android:layout_marginRight="@dimen/waitin_notify_dirivider_both" />
+    <RelativeLayout
+        android:id="@+id/rlPopupWindow"
+        android:layout_width="match_parent"
+        android:layout_height="76dp">
+
+        <TextView
+            android:id="@+id/tvPopupWindow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:text="@string/popup_window"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <CheckBox
+            android:id="@+id/tgPopupWindow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/toggle"
+            android:button="@drawable/toggle"
+            android:checked="true" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dirivider_height"
+        android:id="@+id/rlDirivider4"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/waitin_notify_dirivider_both"
+        android:layout_marginRight="@dimen/waitin_notify_dirivider_both"
+        android:background="@drawable/diriveder_small"/>
+</LinearLayout>

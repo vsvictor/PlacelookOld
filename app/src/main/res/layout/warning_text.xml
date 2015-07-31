@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/warning_header_top"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
+    android:id="@+id/rlTextWarning">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/error_rect"
+        android:id="@+id/rlWarningHeader"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="@dimen/warning_header_rect_left"
+        android:layout_marginRight="@dimen/warning_header_rect_right">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivWar"
+            android:src="@drawable/error"
+            android:layout_marginLeft="@dimen/warning_header_pleft"
+            android:layout_marginTop="@dimen/warning_header_ptop"
+            android:layout_marginBottom="@dimen/warning_header_pbottom" />
+        <RelativeLayout
+            android:layout_below="@id/ivWar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/warning"
+            android:layout_toRightOf="@id/ivWar"
+            android:layout_centerVertical="true"
+            android:id="@+id/tvWarning"
+            android:textColor="@color/white"
+            android:textSize="@dimen/warning_header_textsize"
+            android:layout_marginRight="@dimen/warning_header_pright"
+            android:layout_marginLeft="10dp" />
+        <RelativeLayout
+            android:layout_toRightOf="@id/tvWarning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rlForYourSafety"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/tvForYourSafety"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@string/for_your_safety"
+            android:text="@string/for_your_safety"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:textSize="28sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rlWarning1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlForYourSafety"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp">
+
+        <TextView
+            android:id="@+id/tvWarning11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/warning_11"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlWarning2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlWarning1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp" >
+
+        <TextView
+            android:id="@+id/tvWarning21"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/warning_21"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlWarning3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlWarning2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp" >
+
+        <TextView
+            android:id="@+id/tvWarning31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/warning_31"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlWarning4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rlWarning3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp" >
+
+        <TextView
+            android:id="@+id/tvWarning41"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/warning_41"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+</LinearLayout>

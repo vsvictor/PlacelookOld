@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="@dimen/perm_account_height"
+    android:id="@+id/rlPermanetAccount">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/account"
+        android:id="@+id/tvAccount"
+        android:autoText="true"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/perm_account_account_top"
+        android:layout_marginLeft="@dimen/perm_account_account_left" />
+
+    <RelativeLayout
+        android:id="@+id/rlAccount"
+        android:layout_below="@+id/tvAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="@dimen/perm_account_pic_width"
+        android:layout_height="@dimen/perm_account_pic_height"
+        android:id="@+id/ivAccount"
+        android:layout_marginLeft="@dimen/perm_account_pic_left"
+        android:layout_marginTop="@dimen/perm_account_pic_top"
+        android:src="@drawable/user"
+        android:scaleType="fitXY"
+        android:layout_centerVertical="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ivAccount"
+            android:text="New Text"
+            android:id="@+id/tvEmail"
+            android:layout_marginLeft="@dimen/perm_account_email_left"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+</RelativeLayout>

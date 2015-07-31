@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="@dimen/time_balance_height"
+    android:id="@+id/rlTimeBalance">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/time_balance_acc"
+        android:id="@+id/tvTimeBalance"
+        android:layout_marginLeft="@dimen/time_balance_left"
+        android:layout_marginTop="@dimen/time_balance_top"
+        android:textColor="@color/white" />
+
+    <RelativeLayout
+        android:layout_below="@id/tvTimeBalance"
+        android:id="@+id/rlTimeBalancePanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="@dimen/time_balance_pic_width"
+        android:layout_height="@dimen/time_balance_pic_height"
+        android:id="@+id/ivTimeBalance"
+        android:layout_marginLeft="@dimen/time_balance_pic_left"
+        android:layout_marginTop="@dimen/time_balance_pic_top"
+        android:src="@drawable/balance"
+        android:scaleType="fitXY"
+        android:layout_centerVertical="true" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/time_balance_value_left"
+            android:layout_toRightOf="@id/ivTimeBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00:00"
+            android:id="@+id/tvTimeBalanceValue"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:layout_width="@dimen/time_balance_add_width"
+            android:layout_height="@dimen/time_balance_add_height"
+            android:id="@+id/ivAddBalance"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/add_balance"
+            android:layout_marginRight="@dimen/time_balance_add_right" />
+    </RelativeLayout>
+</RelativeLayout>
