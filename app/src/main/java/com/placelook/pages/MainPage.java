@@ -31,6 +31,9 @@ public class MainPage extends BasePage {
     private static Header header;
     private static Main main;
     private static Footer footer;
+    private static Operator op;
+    private static User us;
+    private static Client cl;
     public MainPage(){
         super(MainActivity.getMainActivity());
         header = new Header();
@@ -92,8 +95,8 @@ public class MainPage extends BasePage {
         header.setOnUserClickListener(new OnClick() {
             @Override
             public void onClick() {
-                User user = new User();
-                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.rlMainFragment, user).commit();
+                us = new User();
+                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.rlMainFragment, us).commit();
             }
         });
         header.setOnHeaderClickListener(new OnClick() {
@@ -105,7 +108,7 @@ public class MainPage extends BasePage {
             @Override
             public void onClick() {
                 //Toast.makeText(MainActivity.getMainActivity(), "Show", Toast.LENGTH_LONG).show();
-                Operator op = new Operator();
+                op = new Operator();
                 getFragmentManager().beginTransaction().
                         replace(R.id.rlMainFragment, op).
                         commit();
@@ -114,9 +117,9 @@ public class MainPage extends BasePage {
         main.setOnView(new OnClick() {
             @Override
             public void onClick() {
-                Client op = new Client();
+                cl = new Client();
                 getFragmentManager().beginTransaction().
-                        replace(R.id.rlMainFragment, op).
+                        replace(R.id.rlMainFragment, cl).
                         commit();
             }
         });

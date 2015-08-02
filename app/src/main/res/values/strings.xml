@@ -63,4 +63,24 @@
     <string name="incoming_accept">Accept</string>
     <string name="incoming_reject">Reject</string>
     <string name="time_balance_zerro">00:00:00</string>
+
+    <string name="thank_you_end_session">Thank you!</string>
+    <string name="you_added_a_end_session">You added a </string>
+    <string name="time_balance_added">00:00</string>
+    <string name="to_you">to you</string>
+    <string name="time_balance_end_session">time balance.</string>
+    <string name="now_you_have_end_session">Now you have</string>
+    <string name="claim_to_client">Claim to client</string>
+    <string name="claim_to_operator">Claim to operator</string>
+    <string name="show_again_end_session">Show Again</string>
+    <string name="main_screen_end_session">MainScreen</string>
+
+    <string name="claim_text">Your anonymous complaint will be sent\n to the administrator and considered in\n the near future.</string>
+    <string name="claim">Claim</string>
+    <string name="false_goal">False goal</string>
+    <string name="trying_to_see_operator">Trying to see operator</string>
+    <string name="strange_behavior">Strange behavior</string>
+    <string name="illegal_requests">Illegal requests</string>
+    <string name="claim_comment_hint">Optional comments</string>
+    <string name="send_claim">Send the claim</string>
 </resources>

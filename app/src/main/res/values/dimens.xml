@@ -163,4 +163,7 @@
     <dimen name="button_left">30dp</dimen>
     <dimen name="button_right">30dp</dimen>
     <dimen name="button_top">50dp</dimen>
+
+    <dimen name="end_session_button_width">140dp</dimen>
+    <dimen name="end_session_button_height">40dp</dimen>
 </resources>

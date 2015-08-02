@@ -19,6 +19,10 @@ import android.widget.Toast;
 import com.placelook.commands.BaseCommand;
 import com.placelook.commands.Login;
 import com.placelook.pages.MainPage;
+import com.placelook.pages.fragments.Claim;
+import com.placelook.pages.fragments.EndSession;
+import com.placelook.pages.fragments.OnClaim;
+import com.placelook.pages.fragments.OnEndSession;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -35,7 +39,9 @@ import de.mindpipe.android.logging.log4j.LogConfigurator;
 public class MainActivity extends Activity {
     private static final String TAG = "MainAvtivity";
     private static MainActivity instance;
-    private MainPage mp;
+    private static MainPage mp;
+    private EndSession es;
+    private Claim claim;
     private Account acc;
     private static Logger log;
     private Placelook helper;
@@ -57,18 +63,13 @@ public class MainActivity extends Activity {
         getFragmentManager().beginTransaction().add(R.id.llMain, mp).commit();
         Intent in = new Intent(this, NetService.class);
         in.putExtra("obj", "start");
-        //startService(in);
-        //netService = new NetService();
-        //netService.bi
 
         bindService(new Intent(this, NetService.class), new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
-                //helper.welcome();
             }
             @Override
             public void onServiceDisconnected(ComponentName name) {
-
             }
         }, BIND_AUTO_CREATE);
         helper.welcome();
@@ -76,6 +77,48 @@ public class MainActivity extends Activity {
     @Override
     public void onResume(){
         super.onResume();
+        claim = new Claim();
+        es = new EndSession();
+        es.setOnEndSession(new OnEndSession() {
+            @Override
+            public void onShowAlign() {
+            }
+            @Override
+            public void onMainScreen() {
+                getFragmentManager().beginTransaction().
+                        replace(R.id.llMain, MainActivity.mp).
+                        add(R.id.rlHeaderFragment, MainPage.getHeader()).
+                        add(R.id.rlMainFragment, MainPage.getMain()).
+                        add(R.id.rlFooterFragment, MainPage.getFooter()).
+                        commit();
+            }
+            @Override
+            public void onClaimToClient() {
+                Bundle b = new Bundle();
+                b.putString("role","operator");
+                claim.setArguments(b);
+                getFragmentManager().beginTransaction().replace(R.id.rlMainFragment,claim).commit();
+            }
+            @Override
+            public void onClaimToOperator() {
+                Bundle b = new Bundle();
+                b.putString("role","client");
+                claim.setArguments(b);
+                getFragmentManager().beginTransaction().replace(R.id.rlMainFragment,claim).commit();
+            }
+        });
+
+        claim.setOnClaim(new OnClaim() {
+            @Override
+            public void onClaim(boolean falseGoal, boolean tryOperator, boolean behaviaor, boolean req, String opt) {
+                getFragmentManager().beginTransaction().
+                        replace(R.id.llMain, MainActivity.mp).
+                        add(R.id.rlHeaderFragment, MainPage.getHeader()).
+                        add(R.id.rlMainFragment, MainPage.getMain()).
+                        add(R.id.rlFooterFragment, MainPage.getFooter()).
+                        commit();
+            }
+        });
         IntentFilter ifFirst = new IntentFilter();
         ifFirst.addAction("start");
         registerReceiver(first, ifFirst);
@@ -112,15 +155,11 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, null);
-        if(resultCode == RESULT_OK){
-            String sRole = data.getExtras().getString("role");
-            if(sRole.equals("operator")){
-                //this.switchFragment(new EndSessionPage(), false);
-            }
-            else if(sRole.equals("client")){
-                //this.switchFragment(new EndSessionPage(), false);
-            }
-        }
+        String sRole = data.getExtras().getString("role");
+        Bundle b = new Bundle();
+        b.putString("role", sRole);
+        es.setArguments(b);
+        getFragmentManager().beginTransaction().replace(R.id.rlMainFragment, es).commit();
     }
     public static MainActivity getMainActivity(){
         return instance;

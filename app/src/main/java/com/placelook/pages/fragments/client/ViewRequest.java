@@ -78,7 +78,7 @@ public class ViewRequest extends BaseFragment {
                 in.putExtra("idSession", idSession);
                 in.putExtra("url", url);
                 in.putExtra("role", role);
-                startActivityForResult(in, 2);
+                MainActivity.getMainActivity().startActivityForResult(in, 2);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

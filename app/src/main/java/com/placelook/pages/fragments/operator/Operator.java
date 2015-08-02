@@ -220,7 +220,7 @@ public class Operator extends BaseFragment {
                 in.putExtra("idSession", id);
                 in.putExtra("role", role);
                 in.putExtra("url", url);
-                startActivityForResult(in, 1);
+                MainActivity.getMainActivity().startActivityForResult(in, 1);
                 //int i = 0;
             } catch (JSONException e) {
                 e.printStackTrace();
