@@ -25,6 +25,9 @@ public class Header extends BaseFragment {
     private OnClick press;
     private ImageView ivPrev;
     private RelativeLayout rlPress;
+    private ImageView ivVideo;
+    private ImageView ivLook;
+    private ImageView ivLogo;
 
     @Override
     public void onCreate(Bundle saved){
@@ -43,6 +46,7 @@ public class Header extends BaseFragment {
             public void onClick(View v) {
                 uListener.onClick();        }
         });
+        ivLogo = (ImageView) rView.findViewById(R.id.ivHeaderLogo);
         tvLogo = (TextView) rView.findViewById(R.id.tvLogo);
         tvLogo.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf"));
         rlLogo = (RelativeLayout) rView.findViewById(R.id.rlLogo);
@@ -54,10 +58,15 @@ public class Header extends BaseFragment {
                 press.onClick();
             }
         });
+        ivVideo = (ImageView) rView.findViewById(R.id.ivVideo);
+        ivLook = (ImageView) rView.findViewById(R.id.ivLook);
     }
     public void setInvisibleAll(){
         ivPrev.setVisibility(View.INVISIBLE);
         ivUser.setVisibility(View.INVISIBLE);
+        ivVideo.setVisibility(View.INVISIBLE);
+        ivLook.setVisibility(View.INVISIBLE);
+        ivLogo.setVisibility(View.INVISIBLE);
     }
     public void setVisiblePrev(boolean visible){
         ivPrev.setVisibility(visible?View.VISIBLE:View.INVISIBLE);
@@ -65,7 +74,15 @@ public class Header extends BaseFragment {
     public void setVisibleUser(boolean visible){
         ivUser.setVisibility(visible?View.VISIBLE:View.INVISIBLE);
     }
-
+    public void setVisibleLogo(boolean visible){
+        ivLogo.setVisibility(visible?View.VISIBLE:View.INVISIBLE);
+    }
+    public void setVisibleVideo(boolean visible){
+        ivVideo.setVisibility(visible?View.VISIBLE:View.INVISIBLE);
+    }
+    public void setVisibleLook(boolean visible){
+        ivLook.setVisibility(visible?View.VISIBLE:View.INVISIBLE);
+    }
     public void setTextHeader(String text){
         tvLogo.setText(text);
     }

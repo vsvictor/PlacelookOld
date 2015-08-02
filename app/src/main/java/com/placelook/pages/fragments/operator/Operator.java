@@ -76,6 +76,7 @@ public class Operator extends BaseFragment {
         super.onViewCreated(view, saved);
         if (slot == -1) {
             getFragmentManager().beginTransaction().
+                    addToBackStack(null).
                     add(R.id.rlWarningTextOperator, wt).
                     add(R.id.rlWarningContinueOperator, wc).
                     remove(MainPage.getFooter()).
@@ -95,6 +96,7 @@ public class Operator extends BaseFragment {
             @Override
             public void onClick() {
                 getFragmentManager().beginTransaction().
+                        addToBackStack(null).
                         remove(wt).
                         remove(wc).
                         add(R.id.rlWaitingClientOperator, ww).
@@ -145,6 +147,9 @@ public class Operator extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        MainPage.getHeader().setInvisibleAll();
+        MainPage.getHeader().setVisiblePrev(true);
+        MainPage.getHeader().setVisibleVideo(true);
         IntentFilter ifConf = new IntentFilter();
         ifConf.addAction("slot_confirm");
         MainActivity.getMainActivity().registerReceiver(rec, ifConf);
@@ -248,5 +253,4 @@ public class Operator extends BaseFragment {
         Logger logger = Logger.getLogger(String.valueOf(MainActivity.class));
         return logger;
     }
-
 }

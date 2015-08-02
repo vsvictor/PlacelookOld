@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,6 +110,7 @@ public class MainPage extends BasePage {
             public void onClick() {
                 op = new Operator();
                 getFragmentManager().beginTransaction().
+                        addToBackStack(null).
                         replace(R.id.rlMainFragment, op).
                         commit();
             }
@@ -118,6 +120,7 @@ public class MainPage extends BasePage {
             public void onClick() {
                 cl = new Client();
                 getFragmentManager().beginTransaction().
+                        addToBackStack(null).
                         replace(R.id.rlMainFragment, cl).
                         commit();
             }
@@ -133,7 +136,14 @@ public class MainPage extends BasePage {
     public void onResume(){
         super.onResume();
         header.setInvisibleAll();
+        header.setVisibleLogo(true);
         header.setVisibleUser(true);
+        header.setOnHeaderClickListener(new OnClick() {
+            @Override
+            public void onClick() {
+                MainActivity.getMainActivity().dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+            }
+        });
         IntentFilter fil = new IntentFilter();
         fil.addAction("client_slot_request");
         MainActivity.getMainActivity().registerReceiver(rec, fil);
@@ -159,13 +169,13 @@ public class MainPage extends BasePage {
                 int slot = obj.getInt("id_slot");
                 int sec = obj.getInt("duration_sec");
                 String goal = obj.getString("description");
-                Operator us = new Operator();
+                op = new Operator();
                 Bundle b = new Bundle();
                 b.putInt("slot", slot);
                 b.putInt("time", sec);
                 b.putString("goal", goal);
-                us.setArguments(b);
-                getFragmentManager().beginTransaction().replace(R.id.rlMainFragment, us).commit();
+                op.setArguments(b);
+                getFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.rlMainFragment, op).commit();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

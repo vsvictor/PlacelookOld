@@ -111,9 +111,12 @@ public class Main extends BaseFragment {
         IntentFilter activeOperatorsFilter = new IntentFilter();
         activeOperatorsFilter.addAction("activity_operators");
         getContext().registerReceiver(activeOperators, activeOperatorsFilter);
+        MainPage.getHeader().setLeftHeader(72);
         MainPage.getHeader().setTextHeader(context.getResources().getString(R.string.app_name));
         MainPage.getHeader().setInvisibleAll();
         MainPage.getHeader().setVisibleUser(true);
+        MainPage.getHeader().setVisibleLogo(true);
+
         setOperatorsCount(operatorsCount);
         setCitiesCount(citiesCount);
         setCountriesCount(countriesCount);

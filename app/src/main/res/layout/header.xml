@@ -25,15 +25,36 @@
         <ImageView
             android:layout_width="@dimen/header_logo_width"
             android:layout_height="@dimen/header_logo_height"
-            android:id="@+id/ivLogo"
+            android:id="@+id/ivHeaderLogo"
             android:src="@drawable/logo_small"
             android:layout_centerVertical="true"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"
+            android:visibility="visible"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true" />
+        <ImageView
+            android:layout_width="@dimen/header_logo_width"
+            android:layout_height="@dimen/header_logo_height"
+            android:id="@+id/ivVideo"
+            android:src="@drawable/video_small"
+            android:layout_centerVertical="true"
+            android:visibility="invisible"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true" />
+        <ImageView
+            android:layout_width="@dimen/header_logo_width"
+            android:layout_height="@dimen/header_logo_height"
+            android:id="@+id/ivLook"
+            android:src="@drawable/look_small"
+            android:layout_centerVertical="true"
+            android:visibility="invisible"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/ivLogo"
+            android:layout_toRightOf="@+id/ivHeaderLogo"
             android:layout_marginLeft="@dimen/small_step"
             android:text="@string/app_name"
             android:id="@+id/tvLogo"

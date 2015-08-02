@@ -49,6 +49,7 @@ public class Login extends BaseFragment {
                 String sPas = edPassword.getText().toString();
                 MainActivity.getMainActivity().getHelper().login(sLog, sPas, bSave);
                 getFragmentManager().beginTransaction().
+                        addToBackStack(null).
                         remove(getCurrent()).
                         add(R.id.rlHeaderFragment, MainPage.getHeader()).
                         add(R.id.rlMainFragment, MainPage.getMain()).

@@ -1,5 +1,6 @@
 package com.placelook.pages.fragments.client;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,13 +28,11 @@ public class Client extends BaseFragment {
         map = new Map();
         vr = new ViewRequest();
     }
-
     @Override
     public View onCreateView(LayoutInflater inf, ViewGroup container, Bundle savedInstanceState) {
         rView = inf.inflate(R.layout.client, container, false);
         return rView;
     }
-
     @Override
     public void onViewCreated(View view, Bundle saved) {
         super.onViewCreated(view, saved);
@@ -46,6 +45,7 @@ public class Client extends BaseFragment {
                 b.putString("city", city);
                 map.setArguments(b);
                 getFragmentManager().beginTransaction().
+                        addToBackStack(null).
                         remove(cc).
                         remove(MainPage.getFooter()).
                         add(R.id.llClient, map).
@@ -58,7 +58,12 @@ public class Client extends BaseFragment {
                 Bundle b = new Bundle();
                 b.putInt("operatorID", idOperator);
                 vr.setArguments(b);
+
+                FragmentTransaction tr = getFragmentManager().beginTransaction();
+
+
                 getFragmentManager().beginTransaction().
+                        addToBackStack(null).
                         remove(map).
                         add(R.id.llClient, vr).
                         commit();
@@ -71,5 +76,11 @@ public class Client extends BaseFragment {
             }
         });
     }
-
+    @Override
+    public void onResume(){
+        super.onResume();
+        MainPage.getHeader().setInvisibleAll();
+        MainPage.getHeader().setVisiblePrev(true);
+        MainPage.getHeader().setVisibleLook(true);
+    }
 }

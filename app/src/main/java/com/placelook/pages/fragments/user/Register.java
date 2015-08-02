@@ -43,6 +43,7 @@ public class Register extends BaseFragment {
                 String sPas = edPassword.getText().toString();
                 MainActivity.getMainActivity().getHelper().registration(sLog, sPas);
                 getFragmentManager().beginTransaction().
+                        addToBackStack(null).
                         remove(getCurrent()).
                         add(R.id.rlHeaderFragment, MainPage.getHeader()).
                         add(R.id.rlMainFragment, MainPage.getMain()).
