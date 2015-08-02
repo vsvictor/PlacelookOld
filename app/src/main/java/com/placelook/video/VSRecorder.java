@@ -1,5 +1,6 @@
 package com.placelook.video;
 
+import com.placelook.data.SyncQueue;
 
 import org.apache.log4j.Logger;
 import org.bytedeco.javacpp.opencv_core.IplImage;
@@ -7,8 +8,6 @@ import org.bytedeco.javacv.FFmpegFrameRecorder;
 import org.bytedeco.javacv.Frame;
 
 import android.os.AsyncTask;
-
-import com.placelook.data.SyncQueue;
 
 public class VSRecorder extends FFmpegFrameRecorder {
 	private VSRecorder instance;

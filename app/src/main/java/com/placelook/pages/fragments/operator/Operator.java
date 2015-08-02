@@ -175,6 +175,8 @@ public class Operator extends BaseFragment {
                 JSONObject obj = new JSONObject(command);
                 JSONObject param = obj.getJSONObject("param");
                 slot = param.getInt("id_slot");
+                sec = param.getInt("duration_sec");
+                goal = param.getString("description");
                 Bundle args = new Bundle();
                 args.putInt("slot", slot);
                 args.putInt("time", sec);

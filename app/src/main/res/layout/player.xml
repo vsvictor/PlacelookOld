@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlPlayer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/ivFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    
+    <RelativeLayout
+        android:id="@+id/bottomClient"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp" >
+
+        <RelativeLayout
+            android:id="@+id/pult"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="55dp"
+            android:layout_marginRight="10dp" >
+
+            <RelativeLayout
+                android:id="@+id/rlClientRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/client_black_cicrle" >
+
+                <ImageView
+                    android:id="@+id/ivClientRightGreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/client_right_green" />
+
+                <ImageView
+                    android:id="@+id/ivClientRightYellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/client_right_yellow" />
+
+                <ImageView
+                    android:id="@+id/ivClientRightWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/client_right_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlClientVertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/rlClientRight" >
+
+                <RelativeLayout
+                    android:id="@+id/rlClientUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/client_black_cicrle" >
+
+                    <ImageView
+                        android:id="@+id/ivClientUpGreen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/client_up_green" />
+
+                    <ImageView
+                        android:id="@+id/ivClientUpYellow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/client_up_yellow" />
+
+                    <ImageView
+                        android:id="@+id/ivClientUpWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/client_up_white" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlClientCenter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rlClientUp"
+                    android:background="@drawable/client_black_cicrle" >
+
+                    <ImageView
+                        android:id="@+id/ivClientGo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/client_go_green" />
+
+                    <ImageView
+                        android:id="@+id/ivClientLook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/client_look_yellow" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlClientDown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rlClientCenter"
+                    android:background="@drawable/client_black_cicrle" >
+
+                    <ImageView
+                        android:id="@+id/ivClientDownGreen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/client_down_green" />
+
+                    <ImageView
+                        android:id="@+id/ivClientDownYellow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/client_down_yellow" />
+
+                    <ImageView
+                        android:id="@+id/ivClientDownWhite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/client_down_white" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlClientLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/rlClientVertical"
+                android:background="@drawable/client_black_cicrle" >
+
+                <ImageView
+                    android:id="@+id/ivClientLeftGreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/client_left_green" />
+
+                <ImageView
+                    android:id="@+id/ivClientLeftYellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/client_left_yellow" />
+
+                <ImageView
+                    android:id="@+id/ivClientLeftWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/client_left_white" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlClientStopTime"
+            android:layout_width="190dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="35dp"
+            android:layout_marginLeft="15dp" >
+
+            <ImageView
+                android:id="@+id/ivClientStopTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/stop_time" />
+
+            <TextView
+                android:id="@+id/tvClientStopTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="24dp"
+                android:text="@string/time_balance_zerro"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlClientStop"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_alignBottom="@id/rlClientStopTime"
+            android:layout_toRightOf="@id/rlClientStopTime" >
+
+            <ImageView
+                android:id="@+id/ivClientStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/stop" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

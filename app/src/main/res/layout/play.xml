@@ -2,17 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".PlayActivityVitamIO" >
+    android:orientation="vertical"
+    tools:context=".PlayActivity" >
 
     <io.vov.vitamio.widget.CenterLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical" >
 
         <SurfaceView
             android:id="@+id/surface"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:layout_gravity="center" >
         </SurfaceView>
 
@@ -221,5 +223,12 @@
                 android:src="@drawable/stop" />
         </RelativeLayout>
     </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivClienStopOperator"
+        android:src="@drawable/stop_operator"
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

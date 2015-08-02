@@ -156,9 +156,13 @@ public class MainPage extends BasePage {
             try {
                 JSONObject obj = new JSONObject(command);
                 int slot = obj.getInt("id_slot");
+                int sec = obj.getInt("duration_sec");
+                String goal = obj.getString("description");
                 Operator us = new Operator();
                 Bundle b = new Bundle();
                 b.putInt("slot", slot);
+                b.putInt("time", sec);
+                b.putString("goal", goal);
                 us.setArguments(b);
                 getFragmentManager().beginTransaction().replace(R.id.rlMainFragment, us).commit();
             } catch (JSONException e) {

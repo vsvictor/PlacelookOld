@@ -152,7 +152,7 @@ public class RecordActivity extends Activity {
 		edMessage = (EditText) findViewById(R.id.edMessage);
 		rlGo = (RelativeLayout) findViewById(R.id.rlGo);
 		rlView = (RelativeLayout) findViewById(R.id.rlView);
-		rlStopOperator = (RelativeLayout) findViewById(R.id.rlStop);
+		rlStopOperator = (RelativeLayout) findViewById(R.id.rlStopCenter);
 		rlUpGreen = (RelativeLayout) findViewById(R.id.rlToUp);
 		rlUpYellow = (RelativeLayout) findViewById(R.id.rlToUpYellow);
 		rlDownGreen = (RelativeLayout) findViewById(R.id.rlToDown);
@@ -175,6 +175,14 @@ public class RecordActivity extends Activity {
 		rlRightYellow.setVisibility(View.INVISIBLE);
 
 		rlStop = (RelativeLayout) findViewById(R.id.rlStop);
+		rlStop.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				MainActivity.getMainActivity().getHelper().sessionAction(idSession, Actions.STOP);
+				rlStop.startAnimation(anim);
+			}
+		});
+
 		rlStopTime = (RelativeLayout) findViewById(R.id.rlStopTime);
 		rlStopTime.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -243,7 +251,7 @@ public class RecordActivity extends Activity {
 	}
 	@Override
 	protected void onDestroy() {
-		unregisterReceiver(client);
+		//unregisterReceiver(client);
 		super.onDestroy();
 		recording = false;
 		if (cameraView != null) {
@@ -525,7 +533,8 @@ public class RecordActivity extends Activity {
 			if (yuvIplimage != null && recording) {
 
                 //yuvIplimage.getByteBuffer().put(data);
-                ((ByteBuffer)yuvIplimage.image[0].position(0)).put(data);
+                ((ByteBuffer)yuvIplimage.
+						image[0].position(0)).put(data);
 
                 long t = 1000 * (System.currentTimeMillis() - startTime);
 				if (t > recorder.getTimestamp()) {

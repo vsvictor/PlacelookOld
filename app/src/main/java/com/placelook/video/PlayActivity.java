@@ -1,7 +1,11 @@
 package com.placelook.video;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +29,10 @@ import com.placelook.Placelook;
 import com.placelook.commands.Actions;
 import com.placelook.MainActivity;
 import com.placelook.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 //import com.placelook.service.PlacelookServiceHelper;
 public class PlayActivity extends Activity implements OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener, OnVideoSizeChangedListener, SurfaceHolder.Callback {
 
@@ -68,11 +76,13 @@ public class PlayActivity extends Activity implements OnBufferingUpdateListener,
 	private ImageView ivClientCenterGo;
 	private ImageView ivClientCenterLook;
 	private ImageView ivClientStop;
-	private Animation anim;
+    private ImageView ivStopOperator;
+    private Animation anim;
 //	private PlacelookServiceHelper helper;
 	private int idSession = -1;
-	
-	public PlayActivity(){
+
+
+    public PlayActivity(){
 
 	}
 	@Override
@@ -80,6 +90,7 @@ public class PlayActivity extends Activity implements OnBufferingUpdateListener,
 		super.onCreate(icicle);
 		//path = getIntent().getStringExtra("url");
 		if (!LibsChecker.checkVitamioLibs(this))return;
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
 		setContentView(R.layout.play);
 		mPreview = (SurfaceView) findViewById(R.id.surface);
 		holder = mPreview.getHolder();
@@ -126,6 +137,9 @@ public class PlayActivity extends Activity implements OnBufferingUpdateListener,
 		
 		ivClientStop = (ImageView) findViewById(R.id.ivClientStop);
 		ivClientStop.setVisibility(View.VISIBLE);
+
+        ivStopOperator = (ImageView) findViewById(R.id.ivClienStopOperator);
+        ivStopOperator.setVisibility(View.INVISIBLE);
 		
 		anim =  AnimationUtils.loadAnimation(this, R.anim.alpha1);
 		rlClientLeft = (RelativeLayout) findViewById(R.id.rlClientLeft);
@@ -328,6 +342,7 @@ public class PlayActivity extends Activity implements OnBufferingUpdateListener,
 			}
 			mMediaPlayer = new MediaPlayer(this);
 			mMediaPlayer.setDataSource(path);
+            mMediaPlayer.setBufferSize(0);
 			mMediaPlayer.setDisplay(holder);
 			mMediaPlayer.prepareAsync();
 			mMediaPlayer.setOnBufferingUpdateListener(this);
@@ -372,9 +387,17 @@ public class PlayActivity extends Activity implements OnBufferingUpdateListener,
 		//setDisplayOrientation(90);
 		playVideo(this.STREAM_VIDEO);
 	}
+    @Override
+    public void onResume(){
+        super.onResume();
+        IntentFilter ifStop = new IntentFilter();
+        ifStop.addAction("client_session_action");
+        registerReceiver(rec, ifStop);
+    }
 	@Override
 	protected void onPause() {
 		super.onPause();
+        unregisterReceiver(rec);
 		releaseMediaPlayer();
 		doCleanUp();
 	}
@@ -400,4 +423,27 @@ public class PlayActivity extends Activity implements OnBufferingUpdateListener,
 		Log.v(TAG, "startVideoPlayback");
 		mMediaPlayer.start();
 	}
+
+    private BroadcastReceiver rec = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String com = intent.getExtras().getString("command");
+            try {
+                JSONObject obj = new JSONObject(com);
+                JSONObject data = obj.getJSONObject("param");
+                String command = data.getString("type");
+                //log.info(com);
+                blink(command);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                //log.info(e.getMessage());
+            }
+        }
+    };
+    private void blink(String act) {
+        if (act.equals(Actions.STOP)) {
+            ivStopOperator.setVisibility(View.VISIBLE);
+        }
+    }
+
 }
