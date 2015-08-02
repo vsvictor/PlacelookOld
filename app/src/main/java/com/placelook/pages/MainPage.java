@@ -107,7 +107,6 @@ public class MainPage extends BasePage {
         main.setOnShow(new OnClick() {
             @Override
             public void onClick() {
-                //Toast.makeText(MainActivity.getMainActivity(), "Show", Toast.LENGTH_LONG).show();
                 op = new Operator();
                 getFragmentManager().beginTransaction().
                         replace(R.id.rlMainFragment, op).
@@ -146,7 +145,6 @@ public class MainPage extends BasePage {
     }
     public static Header getHeader(){return header;}
     public static Footer getFooter(){
-        //if(footer == null) footer = new Footer();
         return footer;
     }
     public static Main getMain(){

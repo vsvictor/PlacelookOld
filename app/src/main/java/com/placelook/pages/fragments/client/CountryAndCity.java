@@ -45,6 +45,9 @@ public class CountryAndCity extends BaseFragment {
     private CitiesAdapter adCities;
     private OnFindCity listener;
     private RelativeLayout rlFind;
+    private TextView tvFindHeader;
+    private TextView tvViewMap;
+    private TextView tvAccept;
 
     @Override
     public void onCreate(Bundle saved) {
@@ -63,6 +66,7 @@ public class CountryAndCity extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle saved) {
         super.onViewCreated(view, saved);
+        tvFindHeader = (TextView) rView.findViewById(R.id.tvFindHeader);
         edCountry = (AutoCompleteTextView) rView.findViewById(R.id.acCountry);
         edCountry.setThreshold(1);
         edCountry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -113,7 +117,10 @@ public class CountryAndCity extends BaseFragment {
                 listener.onFind(shortCountry, edCity.getText().toString());
             }
         });
-
+        tvAccept = (TextView) rView.findViewById(R.id.tvAccept);
+        tvAccept.setTypeface(Typeface.createFromAsset(MainActivity.getMainActivity().getAssets(), "fonts/Roboto-Regular.ttf"));
+        tvViewMap = (TextView) rView.findViewById(R.id.tvViewMap);
+        tvViewMap.setTypeface(Typeface.createFromAsset(MainActivity.getMainActivity().getAssets(), "fonts/Roboto-Regular.ttf"));
     }
     @Override
     public void onResume(){

@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +23,15 @@ import com.placelook.pages.fragments.operator.WarningContinue;
 import com.placelook.pages.fragments.operator.WarningText;
 import com.placelook.video.RecordActivity;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.bytedeco.javacpp.presets.opencv_core;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+
+import de.mindpipe.android.logging.log4j.LogConfigurator;
 
 /**
  * Created by victor on 14.07.15.
@@ -39,7 +46,7 @@ public class Operator extends BaseFragment {
     private int slot;
     private int sec;
     private String goal;
-
+    private Logger log;
     @Override
     public void onCreate(Bundle saved) {
         super.onCreate(saved);
@@ -49,7 +56,6 @@ public class Operator extends BaseFragment {
         ww = new WaitingClient();
         ws = new WaitingSettings();
         wm = new WaitingMinimize();
-        inc = new Incomming();
         try {
             slot = getArguments().getInt("slot");
             sec = getArguments().getInt("time");
@@ -57,6 +63,7 @@ public class Operator extends BaseFragment {
         } catch (Exception e) {
 
         }
+        log = createLogger();
     }
 
     public View onCreateView(LayoutInflater inf, ViewGroup container, Bundle savedInstanceState) {
@@ -133,16 +140,6 @@ public class Operator extends BaseFragment {
                 startActivity(startMain);
             }
         });
-        inc.setOnAccept(new OnAcceptListener() {
-            @Override
-            public void onAccept(int slot) {
-                MainActivity.getMainActivity().getHelper().slotConfirm(slot);
-            }
-
-            @Override
-            public void onReject(int slot) {
-            }
-        });
     }
 
     @Override
@@ -177,6 +174,16 @@ public class Operator extends BaseFragment {
                 slot = param.getInt("id_slot");
                 sec = param.getInt("duration_sec");
                 goal = param.getString("description");
+                inc = new Incomming();
+                inc.setOnAccept(new OnAcceptListener() {
+                    @Override
+                    public void onAccept(int slot) {
+                        MainActivity.getMainActivity().getHelper().slotConfirm(slot);
+                    }
+                    @Override
+                    public void onReject(int slot) {
+                    }
+                });
                 Bundle args = new Bundle();
                 args.putInt("slot", slot);
                 args.putInt("time", sec);
@@ -187,10 +194,12 @@ public class Operator extends BaseFragment {
                         remove(ws).
                         remove(wm).
                         add(R.id.llOperator, inc).
-                        //remove(MainPage.getFooter()).
-                                commit();
+                        commit();
             } catch (JSONException e) {
                 e.printStackTrace();
+            } catch (Exception e){
+                e.printStackTrace();;
+                log.info(e.getMessage());
             }
         }
     };
@@ -200,7 +209,6 @@ public class Operator extends BaseFragment {
             String command = intent.getExtras().getString("command");
             try {
                 JSONObject obj = new JSONObject(command);
-                int i = 0;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -227,4 +235,18 @@ public class Operator extends BaseFragment {
             }
         }
     };
+    private Logger createLogger(){
+        LogConfigurator logConfigurator = new LogConfigurator();
+        logConfigurator.setFileName(Environment.getExternalStorageDirectory()
+                + File.separator + "placelook.txt");
+        logConfigurator.setRootLevel(Level.DEBUG);
+        logConfigurator.setLevel("org.apache", Level.ALL);
+        logConfigurator.setFilePattern("%d %-5p [%c{2}]-[%L] %m%n");
+        logConfigurator.setMaxFileSize(1024 * 1024 * 5);
+        logConfigurator.setImmediateFlush(true);
+        logConfigurator.configure();
+        Logger logger = Logger.getLogger(String.valueOf(MainActivity.class));
+        return logger;
+    }
+
 }

@@ -44,7 +44,7 @@ public class Header extends BaseFragment {
                 uListener.onClick();        }
         });
         tvLogo = (TextView) rView.findViewById(R.id.tvLogo);
-        //if(tvLogo != null) tvLogo.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf"));
+        tvLogo.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf"));
         rlLogo = (RelativeLayout) rView.findViewById(R.id.rlLogo);
         ivPrev = (ImageView) rView.findViewById(R.id.ivPrev);
         rlPress = (RelativeLayout) rView.findViewById(R.id.rlPress);

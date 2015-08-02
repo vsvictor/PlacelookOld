@@ -8,8 +8,8 @@ android {
         applicationId "com.placelook"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 1
-        versionName "0.01"
+        versionCode 3
+        versionName "0.03"
     }
     buildTypes {
         release {

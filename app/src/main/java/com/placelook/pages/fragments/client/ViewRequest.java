@@ -4,12 +4,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.placelook.MainActivity;
 import com.placelook.R;
@@ -28,6 +30,9 @@ public class ViewRequest extends BaseFragment {
     private EditText edGoal;
     private OnRequestListener listener;
     private RelativeLayout rlSend;
+    private TextView tvRequestTitle;
+    private TextView tvTimeInMinutes;
+    private TextView tvSend;
 
     @Override
     public void onCreate(Bundle saved) {
@@ -42,8 +47,16 @@ public class ViewRequest extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle saved) {
         super.onViewCreated(view, saved);
+        tvRequestTitle = (TextView) rView.findViewById(R.id.tvRequestTitle);
+        tvRequestTitle.setTypeface(Typeface.createFromAsset(MainActivity.getMainActivity().getAssets(), "fonts/Roboto-Regular.ttf"));
+        tvTimeInMinutes = (TextView) rView.findViewById(R.id.tvTimeInMinutes);
+        tvTimeInMinutes.setTypeface(Typeface.createFromAsset(MainActivity.getMainActivity().getAssets(), "fonts/Roboto-Regular.ttf"));
         edTime = (EditText) rView.findViewById(R.id.edMinutes);
+        edTime.setTypeface(Typeface.createFromAsset(MainActivity.getMainActivity().getAssets(), "fonts/Roboto-Regular.ttf"));
         edGoal = (EditText) rView.findViewById(R.id.edGoal);
+        edGoal.setTypeface(Typeface.createFromAsset(MainActivity.getMainActivity().getAssets(), "fonts/Roboto-Regular.ttf"));
+        tvSend = (TextView) rView.findViewById(R.id.tvSend);
+        tvSend.setTypeface(Typeface.createFromAsset(MainActivity.getMainActivity().getAssets(), "fonts/Roboto-Regular.ttf"));
         rlSend = (RelativeLayout) rView.findViewById(R.id.rlSend);
         rlSend.setOnClickListener(new View.OnClickListener() {
             @Override

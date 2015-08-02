@@ -1,5 +1,6 @@
 package com.placelook.pages.fragments.operator;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,11 @@ public class Incomming extends BaseFragment {
     private OnAcceptListener listener;
     private RelativeLayout rlAccept;
     private RelativeLayout rlReject;
+    private TextView tvIncommingRequest;
+    private TextView tvGoalText;
+    private TextView tvIncommingTime;
+    private TextView tvAccept;
+    private TextView tvReject;
 
     @Override
     public void onCreate(Bundle saved) {
@@ -45,11 +51,23 @@ public class Incomming extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle saved) {
         super.onViewCreated(view, saved);
-        tvGoal = (TextView) rView.findViewById(R.id.tvGoalText);
+        tvIncommingRequest = (TextView) rView.findViewById(R.id.tvIncommingRequest);
+        tvIncommingRequest.setTypeface(Typeface.createFromAsset(MainActivity.getMainActivity().getAssets(), "fonts/Roboto-Regular.ttf"));
+        tvGoal = (TextView) rView.findViewById(R.id.tvGoal);
+        tvGoal.setTypeface(Typeface.createFromAsset(MainActivity.getMainActivity().getAssets(), "fonts/Roboto-Regular.ttf"));
+        tvGoalText = (TextView) rView.findViewById(R.id.tvGoalText);
+        tvGoalText.setTypeface(Typeface.createFromAsset(MainActivity.getMainActivity().getAssets(), "fonts/Roboto-Bold.ttf"));
+        tvIncommingTime = (TextView) rView.findViewById(R.id.tvIncomingTime);
+        tvIncommingTime.setTypeface(Typeface.createFromAsset(MainActivity.getMainActivity().getAssets(), "fonts/Roboto-Regular.ttf"));
         tvTime = (TextView) rView.findViewById(R.id.tvIncomingTimeValue);
+        tvTime.setTypeface(Typeface.createFromAsset(MainActivity.getMainActivity().getAssets(), "fonts/Roboto-Bold.ttf"));
         tvGoal.setText(goal);
         String sTime = DateTimeOperator.secondToHHMMSS(time);
         tvTime.setText(sTime);
+        tvAccept = (TextView) rView.findViewById(R.id.tvAccept);
+        tvAccept.setTypeface(Typeface.createFromAsset(MainActivity.getMainActivity().getAssets(), "fonts/Roboto-Regular.ttf"));
+        tvReject = (TextView) rView.findViewById(R.id.tvReject);
+        tvReject.setTypeface(Typeface.createFromAsset(MainActivity.getMainActivity().getAssets(), "fonts/Roboto-Regular.ttf"));
         rlAccept = (RelativeLayout) rView.findViewById(R.id.rlAccept);
         rlReject = (RelativeLayout) rView.findViewById(R.id.rlReject);
         rlAccept.setOnClickListener(new View.OnClickListener() {
@@ -64,13 +82,10 @@ public class Incomming extends BaseFragment {
                 listener.onReject(slot);
             }
         });
-        //anim = AnimationUtils.loadAnimation(MainActivity.getMainActivity(), R.anim.waiting_rotate);
-        //ivWaiting = (ImageView) rView.findViewById(R.id.ivWaiting);
     }
     @Override
     public void onResume(){
         super.onResume();
-        //ivWaiting.startAnimation(anim);
     }
     public  void setOnAccept(OnAcceptListener listener){
         this.listener = listener;
