@@ -131,6 +131,12 @@ public class Placelook {
         counter++;
         log.info(TAG + ":" + "Sended " + command.getName());
     }
+    public void slotSearch(){
+        SlotSearchCommand command = new SlotSearchCommand(counter,0,100);
+        command.send(act);
+        counter++;
+        log.info(TAG + ":" + "Sended " + command.getName());
+    }
     public void slotRequest(int idOper, int seconds, String goal){
         SlotRequestCommand command = new SlotRequestCommand(counter,idOper,seconds,goal);
         command.send(act);

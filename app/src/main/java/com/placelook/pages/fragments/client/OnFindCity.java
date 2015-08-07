@@ -5,4 +5,5 @@ package com.placelook.pages.fragments.client;
  */
 public interface OnFindCity {
     void onFind(String country, String city);
+    void onFind();
 }

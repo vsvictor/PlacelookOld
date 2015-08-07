@@ -47,12 +47,17 @@ public class Map extends BaseFragment {
     private BaseObjectList operators;
     private Operator selectedOperator;
     private OnClickOperator listener;
-
+    private boolean all;
     @Override
     public void onCreate(Bundle saved) {
         super.onCreate(saved);
-        country = getArguments().getString("country");
-        city = getArguments().getString("city");
+        try {
+            country = getArguments().getString("country");
+            city = getArguments().getString("city");
+            all = false;
+        } catch (Exception e){
+            all = true;
+        }
 
     }
     @Override
@@ -79,6 +84,9 @@ public class Map extends BaseFragment {
             } catch (IOException e) {
                 upd = CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder().
                         target(new LatLng(0,0)).zoom(5).build());
+            } catch (IllegalArgumentException e){
+                upd = CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder().
+                        target(new LatLng(0,0)).zoom(5).build());
             }
             mv.getMap().animateCamera(upd);
         }
@@ -98,7 +106,11 @@ public class Map extends BaseFragment {
                 return false;
             }
         });
-        MainActivity.getMainActivity().getHelper().slotSearch(country);
+        if(all){
+            MainActivity.getMainActivity().getHelper().slotSearch();
+        }else {
+            MainActivity.getMainActivity().getHelper().slotSearch(country);
+        }
 
     }
     @Override

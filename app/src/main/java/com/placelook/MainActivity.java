@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
     private Claim claim;
     private Account acc;
     private static Logger log;
-    private Placelook helper;
+    private static Placelook helper;
     private boolean active;
     private NetService netService;
     @Override
@@ -165,7 +165,7 @@ public class MainActivity extends Activity {
         return instance;
     }
     public Account getAccount(){return acc;}
-    public Placelook getHelper(){return helper;}
+    public static Placelook getHelper(){return helper;}
     private BroadcastReceiver first = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

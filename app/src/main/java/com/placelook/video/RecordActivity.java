@@ -83,8 +83,8 @@ public class RecordActivity extends Activity {
 
 	// private int frameRate = 24;
 	private int frameRate = 24;
-	//private int bitRate = 35840;
-	 private int bitRate = 512000;
+	private int bitRate = 35840;
+	//private int bitRate = 512000;
 
 	/* audio data getting thread */
 	private AudioRecord audioRecord;
@@ -338,7 +338,7 @@ public class RecordActivity extends Activity {
 		//recorder = new VSRecorder(channel, imageWidth, imageHeight, 1);
 		// recorder.setVideoQuality(0);
 		// recorder.setVideoBitrate(1 000 000);
-		//recorder.setVideoBitrate(bitRate);// 35 kbps
+		recorder.setVideoBitrate(bitRate);// 35 kbps
 		recorder.setFormat("flv");
 		recorder.setSampleRate(sampleAudioRateInHz);
 		recorder.setFrameRate(frameRate);

@@ -45,6 +45,7 @@ public class CountryAndCity extends BaseFragment {
     private CitiesAdapter adCities;
     private OnFindCity listener;
     private RelativeLayout rlFind;
+    private RelativeLayout rlViewMap;
     private TextView tvFindHeader;
     private TextView tvViewMap;
     private TextView tvAccept;
@@ -114,7 +115,17 @@ public class CountryAndCity extends BaseFragment {
         rlFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onFind(shortCountry, edCity.getText().toString());
+                String sCity = edCity.getText().toString();
+                if ((shortCountry != null) && (sCity != null)) {
+                    listener.onFind(shortCountry, sCity);
+                }
+            }
+        });
+        rlViewMap = (RelativeLayout) rView.findViewById(R.id.rlViewMap);
+        rlViewMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onFind();
             }
         });
         tvAccept = (TextView) rView.findViewById(R.id.tvAccept);

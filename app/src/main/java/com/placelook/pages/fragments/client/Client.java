@@ -51,6 +51,16 @@ public class Client extends BaseFragment {
                         add(R.id.llClient, map).
                         commit();
             }
+            @Override
+            public void onFind() {
+                getFragmentManager().beginTransaction().
+                        addToBackStack(null).
+                        remove(cc).
+                        remove(MainPage.getFooter()).
+                        add(R.id.llClient, map).
+                        commit();
+            }
+
         });
         map.setOnClickOperator(new OnClickOperator() {
             @Override
@@ -58,10 +68,7 @@ public class Client extends BaseFragment {
                 Bundle b = new Bundle();
                 b.putInt("operatorID", idOperator);
                 vr.setArguments(b);
-
                 FragmentTransaction tr = getFragmentManager().beginTransaction();
-
-
                 getFragmentManager().beginTransaction().
                         addToBackStack(null).
                         remove(map).

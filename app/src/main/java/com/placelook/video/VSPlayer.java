@@ -2,9 +2,7 @@ package com.placelook.video;
 
 import java.io.File;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.bytedeco.javacpp.avcodec;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.bytedeco.javacpp.opencv_imgproc;
@@ -18,18 +16,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.view.SurfaceView;
 import android.widget.ImageView;
-
-import de.mindpipe.android.logging.log4j.LogConfigurator;
 
 
 public class VSPlayer extends FFmpegFrameGrabber{
 //	private int sampleAudioRateInHz = 44100;
 	private int sampleAudioRateInHz = 16000;	
-	private int frameRate = 24;
-
+//	private int frameRate = 24;
+	private int frameRate = 16;	
 	private ImageView viewer;
 	private boolean stop = false;
 	private Activity context;
@@ -37,22 +32,12 @@ public class VSPlayer extends FFmpegFrameGrabber{
 	private Logger logger;
 	public VSPlayer(Activity context, String stream) {
 		super(stream);
-		//this.init();
+		this.init();
 		this.setFormat("flv");
 		this.setSampleRate(sampleAudioRateInHz);
 		this.setFrameRate(frameRate);
-		this.setVideoCodec(avcodec.AV_CODEC_ID_H264);
-		this.setAudioCodec(avcodec.AV_CODEC_ID_AAC);
-
-		this.setVideoOption("crf", "28");
-		this.setVideoOption("preset", "slow");
-		this.setVideoOption("tune", "zerolatency");
-		this.setVideoOption("probesize", "32");
-		this.setVideoOption("fflags", "nobuffer");
-		this.setVideoOption("analyzeduration", "0");
-		this.setVideoOption("rtbufsize", "0");
 		this.context = context;
-		logger = createLogger();
+		logger = Logger.getLogger(VSPlayer.class);
 	}
 	public void setViewer(ImageView ivViewer){
 		viewer = ivViewer;
@@ -60,26 +45,25 @@ public class VSPlayer extends FFmpegFrameGrabber{
 	private void runVideo(){
 		Frame frame;
 		//OpenCVFrameConverter conv = new OpenCVFrameConverter.ToIplImage();
-
+		AndroidFrameConverter av = new AndroidFrameConverter();
 		try {
 			this.start();
 			while (!stop) {
-				frame = this.grabFrame();
+				frame = this.grab();
 				if(frame == null) continue;
 				if(frame.image != null){
 					count++;
-					logger.info("Frame count: "+count);
-					AndroidFrameConverter av = new AndroidFrameConverter();
+					//IplImage mFrame1 = conv.convertToIplImage(frame);//IplImage.create(frame.imageWidth,frame.imageHeight, opencv_core.IPL_DEPTH_8U,4);
+					//IplImage imgRotated = this.rotateImage(mFrame1);
+					//final Bitmap mBitmap = Bitmap.createBitmap(imgRotated.width(), imgRotated.height(),Bitmap.Config.ARGB_8888);
+					//mBitmap.copyPixelsFromBuffer(imgRotated.getByteBuffer());
 					final Bitmap mBitmap  = av.convert(frame);
-					logger.info(mBitmap == null);
-					context.runOnUiThread(new Runnable() {
+					context.runOnUiThread(new Runnable(){
 						@Override
 						public void run() {
-							viewer.setImageBitmap(mBitmap);
-							logger.info("Viewed");
-						}
+							viewer.setImageBitmap(mBitmap);					}
 					});
-					frame = null;
+					//mFrame1.release();
 				}
 			}
 			this.stop();
@@ -98,7 +82,7 @@ public class VSPlayer extends FFmpegFrameGrabber{
 	}
 	public void stop(){
 		this.stop = true;
-		logger.info("Visible cadrs: " + String.valueOf(count));
+		logger.info("Visible cadrs: "+String.valueOf(count));
 	}
     public static IplImage rotateImage(IplImage img) {
         IplImage img_rotate = IplImage.create(img.height(), img.width(),  img.depth(), img.nChannels());
@@ -106,17 +90,4 @@ public class VSPlayer extends FFmpegFrameGrabber{
         opencv_core.cvFlip(img_rotate, img_rotate, 1);
         return img_rotate;
     }
-	private Logger createLogger(){
-		LogConfigurator logConfigurator = new LogConfigurator();
-		logConfigurator.setFileName(Environment.getExternalStorageDirectory()
-				+ File.separator + "placelook.txt");
-		logConfigurator.setRootLevel(Level.DEBUG);
-		logConfigurator.setLevel("org.apache", Level.ALL);
-		logConfigurator.setFilePattern("%d %-5p [%c{2}]-[%L] %m%n");
-		logConfigurator.setMaxFileSize(1024 * 1024 * 5);
-		logConfigurator.setImmediateFlush(true);
-		logConfigurator.configure();
-		Logger logger = Logger.getLogger(String.valueOf(VSPlayer.class));
-		return logger;
-	}
 }

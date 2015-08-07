@@ -51,4 +51,24 @@ public class SlotSearchCommand extends BaseCommand{
 			e.printStackTrace();
 		}
 	}
+	public SlotSearchCommand(int id, int offset, int limit){
+		super(id,"slot_search");
+		this.offset = offset;
+		this.limit = limit;
+		obj = new JSONObject();
+		try {
+			obj.put("cmd", this.getName());
+			obj.put("callback", this.getName());
+			obj.put("rid", this.getID());
+			JSONObject param = new JSONObject();
+			param.put("offset", this.offset);
+			param.put("limit", this.limit);
+			//param.put("country", "");
+			obj.put("param", param);
+			setText(obj.toString());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
