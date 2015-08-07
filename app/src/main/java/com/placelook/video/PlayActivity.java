@@ -81,7 +81,7 @@ public class PlayActivity extends Activity {
     private FFmpegFrameGrabber player;
 	private Frame f;
 	private boolean stop = false;
-
+    private AudioDevice at;
 	public PlayActivity(){
 		helper = MainActivity.getMainActivity().getHelper();
 	}
@@ -103,6 +103,9 @@ public class PlayActivity extends Activity {
 		mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, CLASS_LABEL);
 		mWakeLock.acquire();
 		initPlayer();
+        at = new AudioDevice(16000,1);
+        Thread th = new Thread(at);
+        th.start();
 
 		ivClientCenterGo = (ImageView) findViewById(R.id.ivClientGo);
 		ivClientCenterLook = (ImageView) findViewById(R.id.ivClientLook);
@@ -326,8 +329,6 @@ public class PlayActivity extends Activity {
         Thread th = new Thread(new Runnable() {
             @Override
             public void run() {
-				Thread th = new Thread(new AudioDevice(16000,1));
-				th.start();
                 AndroidFrameConverter ac = new AndroidFrameConverter();
                 FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(channel);
                 try {
