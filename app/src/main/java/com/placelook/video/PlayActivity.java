@@ -9,6 +9,7 @@ import android.graphics.Matrix;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
+import android.media.audiofx.AcousticEchoCanceler;
 import android.os.*;
 import android.os.Process;
 import android.view.View;
@@ -82,10 +83,11 @@ public class PlayActivity extends Activity {
 	private Frame f;
 	private boolean stop = false;
     private AudioDevice at;
-	public PlayActivity(){
+	private Buffer[] mainBuffer;
+    public PlayActivity(){
 		helper = MainActivity.getMainActivity().getHelper();
 	}
-
+    private Thread playerth;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -103,8 +105,8 @@ public class PlayActivity extends Activity {
 		mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, CLASS_LABEL);
 		mWakeLock.acquire();
 		initPlayer();
-        at = new AudioDevice(16000,1);
-        Thread th = new Thread(at);
+        at = new AudioDevice(8000,1);
+        final Thread th = new Thread(at);
         th.start();
 
 		ivClientCenterGo = (ImageView) findViewById(R.id.ivClientGo);
@@ -308,7 +310,16 @@ public class PlayActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				//player.stop();
-				getHelper().sessionClose(idSession);
+                instance.stop = true;
+                /*
+                try {
+                    th.join();
+                    playerth.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                */
+                getHelper().sessionClose(idSession);
 				Intent intent = new Intent();
 				intent.putExtra("role", "client");
 				setResult(RESULT_OK, intent);
@@ -326,7 +337,7 @@ public class PlayActivity extends Activity {
 	}
 
 	private void initPlayer() {
-        Thread th = new Thread(new Runnable() {
+        playerth = new Thread(new Runnable() {
             @Override
             public void run() {
                 AndroidFrameConverter ac = new AndroidFrameConverter();
@@ -336,20 +347,19 @@ public class PlayActivity extends Activity {
                     while (true){
                         f = grabber.grab();
                         if(f == null) continue;
-						if(f.samples != null) {
-							//at.setData(f.samples);
+                        if(f.samples != null) mainBuffer = f.samples;
+                        if(f.image != null) { //continue;
+							Bitmap b1 = ac.convert(f);
+							Matrix m = new Matrix();
+							m.postRotate(90);
+							final Bitmap b2 = Bitmap.createBitmap(b1, 0, 0, b1.getWidth(), b1.getHeight(), m, true);
+							runOnUiThread(new Runnable() {
+								@Override
+								public void run() {
+									iv.setImageBitmap(b2);
+								}
+							});
 						}
-                        if(f.image == null) continue;
-						Bitmap b1 = ac.convert(f);
-						Matrix m = new Matrix();
-						m.postRotate(90);
-						final Bitmap b2 = Bitmap.createBitmap(b1, 0, 0, b1.getWidth(), b1.getHeight(), m, true);
-						runOnUiThread(new Runnable() {
-							@Override
-							public void run() {
-								iv.setImageBitmap(b2);
-							}
-						});
                     }
                 } catch (FrameGrabber.Exception e) {
                     e.printStackTrace();
@@ -358,7 +368,7 @@ public class PlayActivity extends Activity {
                 }
             }
         });
-        th.start();
+        playerth.start();
 	}
 	private Placelook getHelper(){
 		return helper;
@@ -366,15 +376,23 @@ public class PlayActivity extends Activity {
 	@Override
     public void onBackPressed() {
     }
+
 	public class AudioDevice implements Runnable{
 		AudioTrack track;
 		short[] buffer = new short[1024];
 		public AudioDevice(int sampleRate, int channels) {
 			int minSize = AudioTrack.getMinBufferSize(sampleRate, channels == 1 ? AudioFormat.CHANNEL_CONFIGURATION_MONO : AudioFormat.CHANNEL_CONFIGURATION_STEREO, AudioFormat.ENCODING_PCM_16BIT);
-			track = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate,
+			track = new AudioTrack(AudioManager.STREAM_VOICE_CALL, sampleRate,
 					channels == 1 ? AudioFormat.CHANNEL_CONFIGURATION_MONO : AudioFormat.CHANNEL_CONFIGURATION_STEREO, AudioFormat.ENCODING_PCM_16BIT,
 					minSize, AudioTrack.MODE_STREAM);
-			track.play();
+/*
+            boolean isAvailable = AcousticEchoCanceler.isAvailable();
+            if (isAvailable) {
+                AcousticEchoCanceler aec = AcousticEchoCanceler.create(track.getAudioSessionId());
+                aec.setEnabled(true);
+            }
+*/
+            track.play();
 		}
 		public void writeSamples(float[] samples) {
 			fillBuffer(samples);
@@ -408,13 +426,16 @@ public class PlayActivity extends Activity {
 				}
 			}
 			this.writeSamples(smpls);
+			buffer = new short[1024];
 		}
 		@Override
 		public void run() {
 			android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_URGENT_AUDIO);
 			while (!stop){
-				if(f!= null && f.samples != null) setData(f.samples);
+				if(f!= null && f.samples != null) setData(mainBuffer);
+                //mainBuffer = null;
 			}
 		}
 	}
+
 }

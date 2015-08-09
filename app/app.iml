@@ -101,8 +101,8 @@
     <orderEntry type="library" exported="" name="jackson-core-asl-1.9.7" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="opencv-3.0.0-1.0" level="project" />
-    <orderEntry type="library" exported="" name="log4j-1.2.17" level="project" />
     <orderEntry type="library" exported="" name="flandmark-1.07-1.0" level="project" />
+    <orderEntry type="library" exported="" name="log4j-1.2.17" level="project" />
     <orderEntry type="library" exported="" name="libdc1394-2.2.3-1.0" level="project" />
     <orderEntry type="library" exported="" name="ffmpeg-android-armv7" level="project" />
     <orderEntry type="library" exported="" name="javacv-1.0" level="project" />

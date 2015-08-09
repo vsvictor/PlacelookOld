@@ -14,6 +14,7 @@ import android.hardware.Camera.Size;
 import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
+import android.media.audiofx.AcousticEchoCanceler;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
@@ -68,7 +69,7 @@ public class RecordActivity extends Activity {
 	//private volatile VSRecorder recorder;
 	private boolean isPreviewOn = false;
 	// private int sampleAudioRateInHz = 44100;
-	private int sampleAudioRateInHz = 16000;
+	private int sampleAudioRateInHz = 8000;
 
 	// private int sendWidth = 174;
 	// private int sendHeight = 144;
@@ -78,11 +79,11 @@ public class RecordActivity extends Activity {
 	private int imageWidth = 320;
 	private int imageHeight = 240;
 
-	 //private int imageWidth = 640;
-	 //private int imageHeight = 480;
+	//private int imageWidth = 640;
+	//private int imageHeight = 480;
 
 	// private int frameRate = 24;
-	private int frameRate = 24;
+	private int frameRate = 16;
 	private int bitRate = 35840;
 	//private int bitRate = 512000;
 
@@ -434,9 +435,14 @@ public class RecordActivity extends Activity {
 					.getMinBufferSize(sampleAudioRateInHz,
 							AudioFormat.CHANNEL_IN_MONO,
 							AudioFormat.ENCODING_PCM_16BIT);
-			audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC,
+			audioRecord = new AudioRecord(MediaRecorder.AudioSource.CAMCORDER,
 					sampleAudioRateInHz, AudioFormat.CHANNEL_IN_MONO,
 					AudioFormat.ENCODING_PCM_16BIT, bufferSize);
+			boolean isAvailable = AcousticEchoCanceler.isAvailable();
+			if (isAvailable) {
+				AcousticEchoCanceler aec = AcousticEchoCanceler.create(audioRecord.getAudioSessionId());
+				aec.setEnabled(true);
+			}
 			audioData = new short[bufferSize];
 			audioRecord.startRecording();
             log.info("startAudio RecordActivity");
