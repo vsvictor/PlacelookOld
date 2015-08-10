@@ -1,6 +1,8 @@
 package com.placelook;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -16,8 +18,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.placelook.commands.BaseCommand;
-import com.placelook.commands.Login;
+import com.placelook.commands.*;
+import com.placelook.commands.Error;
 import com.placelook.pages.MainPage;
 import com.placelook.pages.fragments.Claim;
 import com.placelook.pages.fragments.EndSession;
@@ -32,6 +34,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 import de.mindpipe.android.logging.log4j.LogConfigurator;
 
@@ -47,6 +50,8 @@ public class MainActivity extends Activity {
     private static Placelook helper;
     private boolean active;
     private NetService netService;
+    public static String last_command;
+    private int errCounter = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +68,6 @@ public class MainActivity extends Activity {
         getFragmentManager().beginTransaction().add(R.id.llMain, mp).commit();
         Intent in = new Intent(this, NetService.class);
         in.putExtra("obj", "start");
-
         bindService(new Intent(this, NetService.class), new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
@@ -164,7 +168,10 @@ public class MainActivity extends Activity {
     public static MainActivity getMainActivity(){
         return instance;
     }
-    public Account getAccount(){return acc;}
+    public Account getAccount(){
+        if(acc == null) {acc = new Account(this);acc.load();}
+        return acc;
+    }
     public static Placelook getHelper(){return helper;}
     private BroadcastReceiver first = new BroadcastReceiver() {
         @Override
@@ -203,8 +210,45 @@ public class MainActivity extends Activity {
     private BroadcastReceiver errorer = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String st = intent.getExtras().getString(BaseCommand.Fields.message);
-            Toast.makeText(getMainActivity(),st,Toast.LENGTH_LONG).show();
+            errCounter++;
+            String st = intent.getExtras().getString("command");
+            if(errCounter>3){
+                errCounter = 0;
+                try {
+                    JSONObject obj = new JSONObject(st);
+                    int code = obj.getInt("status_code");
+                    if(code == 3) {
+                        getHelper().registration();
+                        return;
+                    }
+                    Error err = new Error(getMainActivity(),code);
+                    err.setTextCommand(st);
+                    Error.Critical cl = err.view();
+                    if(cl == Error.Critical.MAIN){
+                        getFragmentManager().beginTransaction().
+                                replace(R.id.llMain, MainActivity.mp).
+                                add(R.id.rlHeaderFragment, MainPage.getHeader()).
+                                add(R.id.rlMainFragment, MainPage.getMain()).
+                                add(R.id.rlFooterFragment, MainPage.getFooter()).
+                                commit();
+                        getHelper().welcome();
+                    }
+                    else if(cl == Error.Critical.EXIT){
+                        Intent in = new Intent(instance,NetService.class);
+                        in.putExtra("obj", "stop");
+                        instance.startService(in);
+                        finish();
+                        System.exit(0);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                Intent sec = new Intent(getMainActivity(),NetService.class);
+                sec.putExtra("obj",MainActivity.last_command);
+                getMainActivity().startService(sec);
+            }
         }
     };
     private Logger createLogger(){
@@ -273,4 +317,5 @@ public class MainActivity extends Activity {
             }
         }
     };
+
 }

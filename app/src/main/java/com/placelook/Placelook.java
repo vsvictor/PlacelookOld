@@ -1,5 +1,6 @@
 package com.placelook;
 
+import com.placelook.commands.Actions;
 import com.placelook.commands.ActiveOperators;
 import com.placelook.commands.CreateSlotCommand;
 import com.placelook.commands.ListCitiesCommand;
@@ -159,7 +160,7 @@ public class Placelook {
         SessionCloseCommand command = new SessionCloseCommand(counter,idSession);
         command.send(act);
         counter++;
-        log.info(TAG + ":" + "Sended " + command.getName());
+        log.info(TAG + ":" + "Sended " + command.getName()+" : "+command.toString());
     }
     public void sessionAction(int idSession, String action){
         SessionActionCommand command = new SessionActionCommand(counter, idSession, action);
@@ -167,6 +168,13 @@ public class Placelook {
         counter++;
         log.info(TAG + ":" + "Sended " + command.getName());
     }
+    public void sessionAction(int idSession, String action, String text){
+        SessionActionCommand command = new SessionActionCommand(counter, idSession, Actions.TEXT, text);
+        command.send(act);
+        counter++;
+        log.info(TAG + ":" + "Sended " + command.getName());
+    }
+
     public void responsePing(){
         Ping command = new Ping(counter);
         command.send(act);

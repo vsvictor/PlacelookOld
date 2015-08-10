@@ -5,7 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
@@ -16,6 +20,7 @@ import com.placelook.Constants;
 import com.placelook.MainActivity;
 import com.placelook.Placelook;
 import com.placelook.R;
+import com.placelook.data.PlacelookLocation;
 import com.placelook.pages.MainPage;
 import com.placelook.pages.fragments.BaseFragment;
 import com.placelook.pages.fragments.OnClick;
@@ -30,6 +35,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import de.mindpipe.android.logging.log4j.LogConfigurator;
 
@@ -47,6 +55,12 @@ public class Operator extends BaseFragment {
     private int sec;
     private String goal;
     private Logger log;
+
+    private LocationManager locationManager;
+    private Criteria criteria;
+    private String provider;
+
+
     @Override
     public void onCreate(Bundle saved) {
         super.onCreate(saved);
@@ -133,13 +147,17 @@ public class Operator extends BaseFragment {
         wm.setOnMinimize(new OnClick() {
             @Override
             public void onClick() {
-                Intent i = new Intent(MainActivity.getMainActivity(), Slotter.class);
-                i.putExtra("accuracy", Criteria.ACCURACY_MEDIUM);
-                MainActivity.getMainActivity().startService(i);
-                Intent startMain = new Intent(Intent.ACTION_MAIN);
-                startMain.addCategory(Intent.CATEGORY_HOME);
-                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(startMain);
+                locationManager = (LocationManager) MainActivity.getMainActivity().getSystemService(Context.LOCATION_SERVICE);
+                criteria = new Criteria();
+                criteria.setAccuracy(Criteria.ACCURACY_MEDIUM);
+                criteria.setAltitudeRequired(false);
+                criteria.setBearingRequired(false);
+                criteria.setSpeedRequired(false);
+                criteria.setCostAllowed(true);
+                criteria.setPowerRequirement(Criteria.POWER_HIGH);
+                provider = locationManager.getBestProvider(criteria, true);
+                PlacelookLocation loc = getLocation();
+                MainActivity.getMainActivity().getHelper().createSlot(loc);
             }
         });
     }
@@ -159,6 +177,10 @@ public class Operator extends BaseFragment {
         IntentFilter clSlotReq = new IntentFilter();
         clSlotReq.addAction("client_slot_request");
         MainActivity.getMainActivity().registerReceiver(clReq, clSlotReq);
+        IntentFilter create_slot_filter = new IntentFilter();
+        create_slot_filter.addAction("slot_create");
+        MainActivity.getMainActivity().registerReceiver(receiver, create_slot_filter);
+
     }
 
     @Override
@@ -167,6 +189,44 @@ public class Operator extends BaseFragment {
         MainActivity.getMainActivity().unregisterReceiver(rec);
         MainActivity.getMainActivity().unregisterReceiver(oper);
     }
+    private PlacelookLocation getLocation(){
+        PlacelookLocation res = new PlacelookLocation();
+        Location location = locationManager.getLastKnownLocation(provider);
+        //Location location = locationManager.getLastKnownLocation("network");
+        double lat = 0;
+        double lng = 0;
+        if(location != null){
+            lat =  location.getLatitude();
+            lng = location.getLongitude();
+        }
+        res.setLatitude(lat);
+        res.setLongitude(lng);
+        Geocoder gcd = new Geocoder(MainActivity.getMainActivity(), Locale.ENGLISH);
+        String codeCountry = null;
+        String cityName = null;
+        List<Address> addresses = null;
+        try {
+            addresses = gcd.getFromLocation(lat, lng, 1);
+            if(addresses.size() <=0) throw new IOException("Index Out Of Bounds Exception");
+            codeCountry = addresses.get(0).getCountryCode().toLowerCase();
+        } catch (IOException e) {
+            e.printStackTrace();
+            codeCountry="ua";
+            cityName="Kamenets-Podolsky";
+        }
+        res.setCountry(codeCountry);
+        res.setIDCity(-1);
+        return res;
+    }
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Intent startMain = new Intent(Intent.ACTION_MAIN);
+            startMain.addCategory(Intent.CATEGORY_HOME);
+            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(startMain);
+        }
+    };
 
     BroadcastReceiver clReq = new BroadcastReceiver() {
         @Override
@@ -240,6 +300,7 @@ public class Operator extends BaseFragment {
             }
         }
     };
+
     private Logger createLogger(){
         LogConfigurator logConfigurator = new LogConfigurator();
         logConfigurator.setFileName(Environment.getExternalStorageDirectory()

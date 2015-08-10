@@ -8,6 +8,10 @@ public class IntStringPair implements BaseObject{
 		id = 0;
 		name = "";
 	}
+	public IntStringPair(int id){
+		this.id = id;
+		name = "undefined";
+	}
 	public IntStringPair(int id, String name){
 		this.id = id;
 		this.name = name;

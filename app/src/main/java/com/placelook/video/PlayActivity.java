@@ -1,8 +1,10 @@
 package com.placelook.video;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
@@ -15,21 +17,28 @@ import android.os.Process;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.placelook.MainActivity;
 import com.placelook.Placelook;
 import com.placelook.R;
 import com.placelook.commands.Actions;
+import com.placelook.utils.DateTimeOperator;
 
 import org.bytedeco.javacv.AndroidFrameConverter;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class PlayActivity extends Activity {
 	private static PlayActivity instance;
@@ -76,6 +85,13 @@ public class PlayActivity extends Activity {
 	private ImageView ivClientCenterGo;
 	private ImageView ivClientCenterLook;
 	private ImageView ivClientStop;
+	private TextView tvStopTime;
+	private EditText edMessage;
+	private TextView tvMessage;
+	private RelativeLayout rlMessage;
+	private ImageView ivMessage;
+	private RelativeLayout rlStopClient;
+
 	private Animation anim;
 	private boolean isGo = true;
 	private Placelook helper;
@@ -84,10 +100,13 @@ public class PlayActivity extends Activity {
 	private boolean stop = false;
     private AudioDevice at;
 	private Buffer[] mainBuffer;
-    public PlayActivity(){
+
+
+	public PlayActivity(){
 		helper = MainActivity.getMainActivity().getHelper();
 	}
     private Thread playerth;
+	private volatile AudioTrack track;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -334,6 +353,30 @@ public class PlayActivity extends Activity {
 				ivClientStop.startAnimation(anim);
 			}
 		});
+		tvStopTime = (TextView) findViewById(R.id.tvClientStopTime);
+		edMessage = (EditText) findViewById(R.id.edMessage);
+		tvMessage = (TextView) findViewById(R.id.tvMessage);
+		edMessage.setVisibility(View.INVISIBLE);
+		tvMessage.setVisibility(View.VISIBLE);
+		rlMessage = (RelativeLayout) findViewById(R.id.rlMessage);
+		rlMessage.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				tvMessage.setVisibility(View.INVISIBLE);
+				edMessage.setVisibility(View.VISIBLE);
+			}
+		});
+		ivMessage = (ImageView) findViewById(R.id.ivMessagePicture);
+		ivMessage.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String s = edMessage.getText().toString();
+				if(s != null){
+					helper.sessionAction(idSession,Actions.TEXT,s);
+				}
+			}
+		});
+		rlStopClient = (RelativeLayout) findViewById(R.id.rlStopCenter);
 	}
 
 	private void initPlayer() {
@@ -374,11 +417,89 @@ public class PlayActivity extends Activity {
 		return helper;
 	}
 	@Override
+	public void onResume(){
+		super.onResume();
+		track.play();
+		IntentFilter filStop = new IntentFilter();
+		filStop.addAction("client_session_close");
+		registerReceiver(recStop, filStop);
+		IntentFilter actFilter = new IntentFilter();
+		actFilter.addAction("client_session_action");
+		registerReceiver(operator,actFilter);
+		final long begTime = System.currentTimeMillis();
+		Timer t = new Timer();
+		t.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				long curr = System.currentTimeMillis() - begTime;
+				Long lSec = curr / 1000;
+				int sec = lSec.intValue();
+				final String s = DateTimeOperator.secondToHHMMSS(sec);
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						tvStopTime.setText(s);
+					}
+				});
+			}
+		}, 1000, 1000);
+	}
+	@Override
+	public void onPause(){
+		super.onPause();
+		track.stop();
+		unregisterReceiver(recStop);
+		unregisterReceiver(operator);
+	}
+	@Override
     public void onBackPressed() {
     }
+	private BroadcastReceiver recStop = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			Intent in = new Intent();
+			in.putExtra("role", "client");
+			instance.setResult(Activity.RESULT_OK, in);
+			instance.finish();
+		}
+	} ;
+	BroadcastReceiver operator = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String com = intent.getExtras().getString("command");
+			try {
+				JSONObject obj = new JSONObject(com);
+				JSONObject data = obj.getJSONObject("param");
+				String command = data.getString("type");
+				if (command.equals("text")) {
+					edMessage.setVisibility(View.INVISIBLE);
+					tvMessage.setVisibility(View.VISIBLE);
+					String msg = data.getString("msg");
+					tvMessage.setText(msg);
+				} else blink(command);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+	};
+	private void blink(String act) {
+		if (act.equals(Actions.STOP)) {
+			rlStopClient.setVisibility(View.VISIBLE);
+			rlStopClient.startAnimation(anim);
+			anim.setAnimationListener(new Animation.AnimationListener() {
+				@Override
+				public void onAnimationStart(Animation animation) {}
+				@Override
+				public void onAnimationEnd(Animation animation) {}
+				@Override
+				public void onAnimationRepeat(Animation animation) {
+					rlStopClient.setVisibility(View.INVISIBLE);
+				}
+			});
+		}
+	}
 
 	public class AudioDevice implements Runnable{
-		AudioTrack track;
 		short[] buffer = new short[1024];
 		public AudioDevice(int sampleRate, int channels) {
 			int minSize = AudioTrack.getMinBufferSize(sampleRate, channels == 1 ? AudioFormat.CHANNEL_CONFIGURATION_MONO : AudioFormat.CHANNEL_CONFIGURATION_STEREO, AudioFormat.ENCODING_PCM_16BIT);
@@ -392,7 +513,7 @@ public class PlayActivity extends Activity {
                 aec.setEnabled(true);
             }
 */
-            track.play();
+            //track.play();
 		}
 		public void writeSamples(float[] samples) {
 			fillBuffer(samples);
@@ -407,14 +528,14 @@ public class PlayActivity extends Activity {
 		public void setData(Buffer[] data){
 			final java.nio.Buffer[] samples=data;//Getting the samples from the Frame from grabFrame()
 			float[] smpls = null;
-			if(this.track.getChannelCount()==1){//For using with mono track
+			if(track.getChannelCount()==1){//For using with mono track
 				Buffer b=samples[0];
 				FloatBuffer fb = (FloatBuffer)b;
 				fb.rewind();
 				smpls=new float[fb.capacity()];
 				fb.get(smpls);
 			}
-			else if(this.track.getChannelCount()==2)//For using with stereo track
+			else if(track.getChannelCount()==2)//For using with stereo track
 			{
 				FloatBuffer b1=(FloatBuffer) samples[0];
 				FloatBuffer b2=(FloatBuffer) samples[1];
@@ -432,7 +553,8 @@ public class PlayActivity extends Activity {
 		public void run() {
 			android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_URGENT_AUDIO);
 			while (!stop){
-				if(f!= null && f.samples != null) setData(mainBuffer);
+				if(mainBuffer != null) setData(mainBuffer);
+				//if(f!= null && f.samples != null) setData(mainBuffer);
                 //mainBuffer = null;
 			}
 		}

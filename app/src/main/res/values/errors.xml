@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ok">Ok</string>
+    <string name="error">Error</string>
+    <string name="repeat">Reapeat</string>
+    <string name="cancel">Cancel</string>
+    <string name="err_ok">Ok</string>
+    <string name="err_access">Access restricted</string>
+    <string name="err_auth">Authorization error - an incorrect username/password</string>
+    <string name="err_loggined">User already logged in (on another device)</string>
+    <string name="err_command">Invalid command</string>
+    <string name="err_unavailable">Server is temporarily unavailable</string>
+    <string name="err_server">Server error</string>
+    <string name="err_syntax">Error in command syntax</string>
+    <string name="err_blocked">User blocked</string>
+    <string name="err_unknown">Unknown error</string>
+    <string name="err_user">Such user already exists</string>
+    <string name="err_version">Old version of the API</string>
+    <string name="err_unknowncommand">Unknown command</string>
+    <string name="err_network">The problem is the network connection by partner (customer/operator)</string>
+    <string name="err_funds">Insufficient Funds User</string>
+    <string name="err_virify">Payment is not verified</string>
+    <string name="err_registry">Exceeded the limit of registrations per device</string>
+    <string name="sock_could">Connection could not be established in the first place</string>
+    <string name="sock_prev">A previously established connection was lost unexpected</string>
+    <string name="sock_protocol">The connection was closed because a protocol violation occurred</string>
+    <string name="sock_internal">Internal error</string>
+    <string name="sock_server">Server returned error while connecting</string>
+    <string name="sock_lost">Server connection lost, scheduled reconnect</string>
+</resources>

@@ -246,10 +246,22 @@
                 android:layout_toRightOf="@id/ivMessagePicture"
                 android:background="@drawable/edit_message"
                 android:ems="10"
+                android:textColor="@color/white"
                 android:inputType="textMultiLine" >
-
-                <requestFocus />
             </EditText>
+            <TextView
+                android:id="@+id/tvMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@id/ivMessagePicture"
+                android:background="@drawable/edit_message"
+                android:ems="10"
+                android:textColor="@color/white"
+                android:inputType="textMultiLine" >
+            </TextView>
 
         </RelativeLayout>
 

@@ -65,7 +65,6 @@
 
         <service android:name="com.placelook.NetService" android:label="PlacelookNetService" />
         <!--        <service android:name="com.placelook.IOService" android:label="PlacelookIOService" /> -->
-        <service android:name=".pages.fragments.operator.Slotter" android:label="PlacelookSlotter" />
     </application>
 
 </manifest>
