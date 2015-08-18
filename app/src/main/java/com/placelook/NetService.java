@@ -19,7 +19,6 @@ import java.util.TimerTask;
 
 import de.tavendo.autobahn.WebSocket;
 import de.tavendo.autobahn.WebSocketConnection;
-import de.tavendo.autobahn.WebSocketConnectionHandler;
 import de.tavendo.autobahn.WebSocketException;
 import de.tavendo.autobahn.WebSocketMessage;
 
@@ -47,6 +46,17 @@ public class NetService extends Service {
                 @Override
                 public void onOpen() {
                     Log.i(TAG, "Connected");
+                    /*Intent inStart = new Intent("start");
+                    JSONObject obj = new JSONObject();
+                    try {
+                        obj.put("callback", "start");
+                        obj.put("status_code", 1);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    inStart.putExtra("command", obj.toString());
+                    sendBroadcast(inStart);*/
+                    //startPingPong(socket);
                     socket.sendTextMessage(command);
                 }
                 @Override
@@ -56,19 +66,8 @@ public class NetService extends Service {
 
                     try {
                         JSONObject obj = new JSONObject(message);
+                        if(obj.getString("callback").equals("pong")) {Log.i(TAG, "Pong");return;}
                         sCallBack = obj.getString("callback");
-                        if(obj.getString("cmd").equals("client_ping")){
-                            JSONObject req = new JSONObject();
-                            req.put("cmd","response");
-                            JSONObject param = new JSONObject();
-                            long l = System.currentTimeMillis();
-                            param.put("time", String.valueOf(l));
-                            req.put("param",param);
-                            req.put("callback","ping");
-                            req.put("rid", "");
-                            socket.sendTextMessage(req.toString());
-                            return;
-                        }
                         if(obj.getString("cmd").equals("client_slot_request")){
                             obj.put("callback", "client_slot_request");
                             viewWindow(obj);
@@ -77,25 +76,12 @@ public class NetService extends Service {
                         else if(obj.getString("cmd").equals("client_session_start")){
                             sCallBack = obj.getJSONObject("param").getString("role");
                             int idSession = obj.getJSONObject("param").getInt("id");
-                            obj.put("status_code",1);
+
                         }
                         else if(obj.getString("cmd").equals("client_session_action")){
                             obj.put("callback","client_session_action");
-                            obj.put("status_code",1);
                             sCallBack = "client_session_action";
                         }
-                        else if(obj.getString("cmd").equals("session_close")){
-                            obj.remove("status_code");
-                            obj.put("status_code",1);
-                        }
-                        else if(obj.getString("cmd").equals("client_session_close")){
-                            obj.put("callback","client_session_close");
-                            sCallBack = obj.getString("callback");
-                            obj.put("status_code",1);
-                        }
-
-                        int resCode = obj.getInt("status_code");
-                        if(resCode != 1) sCallBack = "error";
                         Intent res = new Intent(sCallBack);
                         res.putExtra("command", obj.toString());
                         sendBroadcast(res);
@@ -109,18 +95,9 @@ public class NetService extends Service {
                 public void onBinaryMessage(byte[] payload) {}
                 @Override
                 public void onClose(int code, String reason) {
-                    if(code != WebSocketConnectionHandler.CLOSE_NORMAL){
-                        JSONObject obj = new JSONObject();
-                        try {
-                            obj.put("callback","error");
-                            obj.put("status_code",-code);
-                            Intent intent = new Intent("error");
-                            intent.putExtra("command", obj.toString());
-                            sendBroadcast(intent);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    Log.i(TAG, "Close");
+                    stopSelf();
+                    Log.i(TAG, "Stopped");
                 }
             });
         } catch (WebSocketException e) {
@@ -128,7 +105,7 @@ public class NetService extends Service {
         }
     }
     private void send(String comm){
-        if(socket != null && socket.isConnected()) socket.sendTextMessage(comm);
+        if(socket.isConnected()) socket.sendTextMessage(comm);
         else  initSocket(comm);
     }
 
@@ -139,7 +116,6 @@ public class NetService extends Service {
             if(s.equals("start")) {return Service.START_REDELIVER_INTENT;}
             else if(s.equals("stop")){
                 socket.disconnect();
-                stopSelf();
                 return 0;
             }
             if(s != null) {

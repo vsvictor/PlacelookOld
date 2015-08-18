@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background" >
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/rlClimText">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/thank_you"
+            android:id="@+id/tvThankYou"
+            android:textColor="@color/white"
+            android:textSize="36sp"
+            android:layout_centerHorizontal="true"
+            android:textIsSelectable="false" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/complaint"
+            android:id="@+id/tvComplaint"
+            android:layout_below="@id/tvThankYou"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/in_case"
+            android:id="@+id/tvInCase1"
+            android:layout_below="@id/tvComplaint"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/in_case"
+            android:id="@+id/tvInCase2"
+            android:layout_below="@id/tvInCase1"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/in_case"
+            android:id="@+id/tvInCase3"
+            android:layout_below="@id/tvInCase2"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="20dp" />
+
+        <RelativeLayout
+            android:id="@+id/rlShowAgainMainScreen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvInCase3"
+            android:layout_marginTop="40dp" >
+
+            <RelativeLayout
+                android:id="@+id/rlShowAgain"
+                android:layout_width="@dimen/end_session_button_width"
+                android:layout_height="@dimen/end_session_button_height"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="25dp"
+                android:background="@color/gray_light">
+
+                <TextView
+                    android:id="@+id/tvShowAgain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/show_again_end_session"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlMainScreen"
+                android:layout_width="@dimen/end_session_button_width"
+                android:layout_height="@dimen/end_session_button_height"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="25dp"
+                android:background="@color/gray_light" >
+
+                <TextView
+                    android:id="@+id/tvMainScreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/main_screen_end_session"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

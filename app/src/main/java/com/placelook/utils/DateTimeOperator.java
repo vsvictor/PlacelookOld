@@ -1,5 +1,8 @@
 package com.placelook.utils;
 
+import org.bytedeco.javacpp.presets.opencv_core;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -21,4 +24,13 @@ public class DateTimeOperator {
         if(sSec.length()<2) sSec = "0"+sSec;
         return sHours+":"+sMin+":"+sSec;
     }
+    public static String dateToHHMM(Date d){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        return "";
+    }
+    public static String dateToMMDDYYYY(Date d){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        return "";
+    }
+
 }

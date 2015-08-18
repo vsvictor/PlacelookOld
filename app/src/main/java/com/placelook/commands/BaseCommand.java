@@ -5,7 +5,6 @@ import android.content.Intent;
 
 //import com.placelook.IOService;
 //import com.placelook.NetService;
-import com.placelook.MainActivity;
 import com.placelook.NetService;
 import com.placelook.Placelook;
 import com.placelook.data.BaseObject;
@@ -55,7 +54,6 @@ public class BaseCommand extends IntStringPair{
 		String s = this.toString();
 		intent.putExtra("obj", s);
 		context.startService(intent);
-		MainActivity.last_command = s;
 	}
 	public static class Fields{
 		public static String message = "message";

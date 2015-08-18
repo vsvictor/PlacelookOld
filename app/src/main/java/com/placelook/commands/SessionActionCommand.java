@@ -27,24 +27,6 @@ public class SessionActionCommand  extends BaseCommand{
 			e.printStackTrace();
 		}
 	}
-	public SessionActionCommand(int id, int idSession, String command, String msg){
-		super(id, "session_action");
-		obj = new JSONObject();
-		try {
-			obj.put("cmd", this.getName());
-			obj.put("callback", this.getName());
-			obj.put("rid", this.getID());
-			JSONObject param = new JSONObject();
-			param.put("id_session", String.valueOf(idSession));
-			param.put("type", Actions.TEXT);
-			param.put("msg", msg);
-			obj.put("param", param);
-			setText(obj.toString());
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public SessionActionCommand(int id, int idSession, double width, double height){
 		super(id, "session_action");
 		obj = new JSONObject();

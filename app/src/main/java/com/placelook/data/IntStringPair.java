@@ -42,7 +42,7 @@ public class IntStringPair implements BaseObject{
 	public int compareTo(Object another) {
 		return this.getName().compareToIgnoreCase((String) ((BaseObject)another).getName());
 	}
-    public String toJSONElement(){
-    	return String.valueOf(getID())+":"+getName();
-    }
+	public String toJSONElement(){
+		return String.valueOf(getID())+":"+getName();
+	}
 }

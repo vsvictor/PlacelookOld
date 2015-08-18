@@ -10,65 +10,7 @@
         android:scaleType="fitXY"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <RelativeLayout
-        android:id="@+id/rlMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/message_rectangle" >
-
-        <ImageView
-            android:id="@+id/ivMessagePicture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="18dp"
-            android:src="@drawable/message_picture" />
-
-        <EditText
-            android:id="@+id/edMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="20dp"
-            android:layout_toRightOf="@id/ivMessagePicture"
-            android:background="@drawable/edit_message"
-            android:ems="10"
-            android:textColor="@color/white"
-            android:inputType="textMultiLine" >
-        </EditText>
-        <TextView
-            android:id="@+id/tvMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="20dp"
-            android:layout_toRightOf="@id/ivMessagePicture"
-            android:background="@drawable/edit_message"
-            android:textColor="@color/white"
-            android:ems="10"
-            android:inputType="textMultiLine" >
-        </TextView>
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/rlStopCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="invisible" >
-
-        <ImageView
-            android:id="@+id/ivStopCenter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/stop_operator" />
-    </RelativeLayout>
+    
     <RelativeLayout
         android:id="@+id/bottomClient"
         android:layout_width="match_parent"

@@ -83,4 +83,7 @@
     <string name="illegal_requests">Illegal requests</string>
     <string name="claim_comment_hint">Optional comments</string>
     <string name="send_claim">Send the claim</string>
+    <string name="thank_you">Thank you!</string>
+    <string name="complaint">Your complaint will be consid-\nered by the administrator.</string>
+    <string name="in_case">In Case of ... any text</string>
 </resources>

@@ -45,6 +45,10 @@ import de.mindpipe.android.logging.log4j.LogConfigurator;
  * Created by victor on 14.07.15.
  */
 public class Operator extends BaseFragment {
+    private Criteria criteria;
+    private String provider;
+    private LocationManager locationManager;
+
     private WarningText wt;
     private WarningContinue wc;
     private WaitingClient ww;
@@ -55,12 +59,6 @@ public class Operator extends BaseFragment {
     private int sec;
     private String goal;
     private Logger log;
-
-    private LocationManager locationManager;
-    private Criteria criteria;
-    private String provider;
-
-
     @Override
     public void onCreate(Bundle saved) {
         super.onCreate(saved);
@@ -147,17 +145,8 @@ public class Operator extends BaseFragment {
         wm.setOnMinimize(new OnClick() {
             @Override
             public void onClick() {
-                locationManager = (LocationManager) MainActivity.getMainActivity().getSystemService(Context.LOCATION_SERVICE);
-                criteria = new Criteria();
-                criteria.setAccuracy(Criteria.ACCURACY_MEDIUM);
-                criteria.setAltitudeRequired(false);
-                criteria.setBearingRequired(false);
-                criteria.setSpeedRequired(false);
-                criteria.setCostAllowed(true);
-                criteria.setPowerRequirement(Criteria.POWER_HIGH);
-                provider = locationManager.getBestProvider(criteria, true);
                 PlacelookLocation loc = getLocation();
-                MainActivity.getMainActivity().getHelper().createSlot(loc);
+                MainActivity.getHelper().createSlot(loc);
             }
         });
     }
@@ -177,10 +166,9 @@ public class Operator extends BaseFragment {
         IntentFilter clSlotReq = new IntentFilter();
         clSlotReq.addAction("client_slot_request");
         MainActivity.getMainActivity().registerReceiver(clReq, clSlotReq);
-        IntentFilter create_slot_filter = new IntentFilter();
-        create_slot_filter.addAction("slot_create");
-        MainActivity.getMainActivity().registerReceiver(receiver, create_slot_filter);
-
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("slot_create");
+        MainActivity.getMainActivity().registerReceiver(receiver, filter);
     }
 
     @Override
@@ -191,8 +179,16 @@ public class Operator extends BaseFragment {
     }
     private PlacelookLocation getLocation(){
         PlacelookLocation res = new PlacelookLocation();
+        locationManager = (LocationManager) MainActivity.getMainActivity().getSystemService(Context.LOCATION_SERVICE);
+        criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
+        criteria.setSpeedRequired(false);
+        criteria.setCostAllowed(true);
+        criteria.setPowerRequirement(Criteria.POWER_HIGH);
+        provider = locationManager.getBestProvider(criteria, true);
         Location location = locationManager.getLastKnownLocation(provider);
-        //Location location = locationManager.getLastKnownLocation("network");
         double lat = 0;
         double lng = 0;
         if(location != null){
@@ -212,21 +208,12 @@ public class Operator extends BaseFragment {
         } catch (IOException e) {
             e.printStackTrace();
             codeCountry="ua";
-            cityName="Kamenets-Podolsky";
+            cityName="Kamene";
         }
         res.setCountry(codeCountry);
         res.setIDCity(-1);
         return res;
     }
-    BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Intent startMain = new Intent(Intent.ACTION_MAIN);
-            startMain.addCategory(Intent.CATEGORY_HOME);
-            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(startMain);
-        }
-    };
 
     BroadcastReceiver clReq = new BroadcastReceiver() {
         @Override
@@ -295,6 +282,26 @@ public class Operator extends BaseFragment {
                 in.putExtra("url", url);
                 MainActivity.getMainActivity().startActivityForResult(in, 1);
                 //int i = 0;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int res = -1;
+            String s = intent.getExtras().getString("command");
+            try {
+                JSONObject obj = new JSONObject(s);
+                res = obj.getInt("status_code");
+                if(res != 1){}
+                else{
+                    Intent startMain = new Intent(Intent.ACTION_MAIN);
+                    startMain.addCategory(Intent.CATEGORY_HOME);
+                    startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(startMain);
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }

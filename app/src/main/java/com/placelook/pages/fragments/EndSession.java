@@ -10,12 +10,14 @@ import android.widget.TextView;
 
 import com.placelook.MainActivity;
 import com.placelook.R;
+import com.placelook.pages.MainPage;
 
 /**
  * Created by victor on 02.08.15.
  */
 public class EndSession extends BaseFragment {
     private String role;
+    private int idSession;
     private TextView tvTimeBalanceAdded;
     private TextView tvTimeBalance;
     private RelativeLayout rlShowAlign;
@@ -36,7 +38,11 @@ public class EndSession extends BaseFragment {
         super.onCreate(saved);
         try {
             role = getArguments().getString("role");
-        }catch (Exception e){}
+            idSession = getArguments().getInt("idSession");
+        }catch (Exception e){
+            role = "undefined";
+            idSession = -1;
+        }
     }
     @Override
     public View onCreateView(LayoutInflater inf, ViewGroup container, Bundle savedInstanceState) {
@@ -96,6 +102,12 @@ public class EndSession extends BaseFragment {
             tvClaimToClient.setVisibility(View.INVISIBLE);
             tvClaimToOperator.setVisibility(View.VISIBLE);
         }
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        MainPage.getHeader().setInvisibleAll();
+        MainPage.getHeader().setVisibleLook(true);
     }
     public void setOnEndSession(OnEndSession listener){
         this.endSession = listener;
