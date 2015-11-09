@@ -86,4 +86,6 @@
     <string name="thank_you">Thank you!</string>
     <string name="complaint">Your complaint will be consid-\nered by the administrator.</string>
     <string name="in_case">In Case of ... any text</string>
+
+    <string name="please_wait">Please wait...</string>
 </resources>

@@ -14,7 +14,8 @@
         android:textColor="@color/gray_light"
         android:textSize="18sp"
         android:layout_marginLeft="@dimen/warning_cb_left"
-        android:layout_marginRight="@dimen/warning_cb_right" />
+        android:layout_marginRight="@dimen/warning_cb_right"
+        android:layout_centerHorizontal="true" />
 
     <RelativeLayout
         android:id="@+id/rlContinue"

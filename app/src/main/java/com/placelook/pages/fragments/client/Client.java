@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
+import com.placelook.Constants;
 import com.placelook.MainActivity;
 import com.placelook.Placelook;
 import com.placelook.R;
@@ -80,6 +81,7 @@ public class Client extends BaseFragment {
             @Override
             public void OnRequest(int idOper, int seconds, String goal) {
                 MainActivity.getMainActivity().getHelper().slotRequest(idOper, seconds, goal);
+                MainActivity.getMainActivity().showDialog(Constants.ID_WAIT_CANCEL);
             }
         });
     }

@@ -68,10 +68,11 @@ public class Map extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle saved) {
         super.onViewCreated(view, saved);
+        MapsInitializer.initialize(MainActivity.getMainActivity());
         mv = (ExMapView) rView.findViewById(R.id.exmapview);
         mv.onCreate(saved);
         mv.onResume();
-        MapsInitializer.initialize(MainActivity.getMainActivity());
+
         if(Geocoder.isPresent()){
             CameraUpdate upd = null;
             try {
@@ -85,10 +86,10 @@ public class Map extends BaseFragment {
                 upd = CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder().
                         target(new LatLng(0,0)).zoom(5).build());
             } catch (IllegalArgumentException e){
-                upd = CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder().
-                        target(new LatLng(0,0)).zoom(5).build());
+                //upd = CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder().
+                //        target(new LatLng(0,0)).zoom(5).build());
             }
-            mv.getMap().animateCamera(upd);
+            if(upd != null)  mv.getMap().animateCamera(upd);
         }
         mv.getMap().setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override

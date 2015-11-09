@@ -1,7 +1,12 @@
 package com.placelook.pages.fragments.operator;
 
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.placelook.Constants;
 import com.placelook.MainActivity;
 import com.placelook.R;
 import com.placelook.pages.fragments.BaseFragment;
@@ -35,7 +41,9 @@ public class Incomming extends BaseFragment {
     private TextView tvIncommingTime;
     private TextView tvAccept;
     private TextView tvReject;
-
+    private boolean stop = false;
+    private Thread thSount;
+    private Thread thVibrate;
     @Override
     public void onCreate(Bundle saved) {
         super.onCreate(saved);
@@ -82,13 +90,75 @@ public class Incomming extends BaseFragment {
                 listener.onReject(slot);
             }
         });
+        stop = false;
+        if(getSound()){
+            thSount = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Uri notification = Uri.parse("android.resource://com.placelook/"+R.raw.europa);//RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+                    Ringtone r = RingtoneManager.getRingtone(MainActivity.getMainActivity(), notification);
+                    r.play();
+                }
+            });
+            thSount.start();
+        }
+        if(getVibrate()){
+            thVibrate = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    vibrateSOS();
+                }
+            });
+            thVibrate.start();
+        }
     }
     @Override
     public void onResume(){
         super.onResume();
     }
+    @Override
+    public void onPause(){
+        super.onPause();
+        try {
+            this.stop = true;
+            thSount.join();
+            thVibrate.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     public  void setOnAccept(OnAcceptListener listener){
         this.listener = listener;
     }
-
+    private boolean getSound(){
+        SharedPreferences sh = context.getSharedPreferences(Constants.appName, context.MODE_PRIVATE);
+        boolean res = sh.getBoolean("sound", true);
+        return res;
+    }
+    private  boolean getVibrate(){
+        SharedPreferences sh = context.getSharedPreferences(Constants.appName, context.MODE_PRIVATE);
+        boolean res = sh.getBoolean("vibrate", true);
+        return res;
+    }
+    private void vibrateSOS(){
+        Vibrator v = (Vibrator) this.context.getSystemService(MainActivity.getMainActivity().VIBRATOR_SERVICE);
+        try {
+            v.vibrate(1500);
+            Thread.sleep(1000);
+            v.vibrate(1500);
+            Thread.sleep(1000);
+            v.vibrate(1500);
+            Thread.sleep(1000);
+            v.vibrate(1000);
+            Thread.sleep(500);
+            v.vibrate(1000);
+            Thread.sleep(500);
+            v.vibrate(1000);
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+        }
+    }
+    public void stop(){
+        stop = true;
+    }
 }

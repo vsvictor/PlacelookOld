@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.placelook.controls.ExRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rlPlayer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +10,72 @@
         android:scaleType="fitXY"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    
+<!--
+    <RelativeLayout
+        android:id="@+id/rlMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/message_rectangle" >
+
+        <ImageView
+            android:id="@+id/ivMessagePicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/message_picture"
+            android:layout_marginRight="18dp" />
+
+        <TextView
+            android:id="@+id/tvMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@id/ivMessagePicture"
+            android:background="@drawable/edit_message"
+            android:ems="10"
+            android:textColor="@color/white"
+            android:inputType="textMultiLine" >
+        </TextView>
+
+        <EditText
+            android:id="@+id/edMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@id/ivMessagePicture"
+            android:background="@drawable/edit_message"
+            android:ems="10"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            android:inputType="textMultiLine" >
+        </EditText>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlStopCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible" >
+
+        <ImageView
+            android:id="@+id/ivStopCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/stop_operator" />
+    </RelativeLayout>
+
+
     <RelativeLayout
         android:id="@+id/bottomClient"
         android:layout_width="match_parent"
@@ -214,5 +279,5 @@
                 android:src="@drawable/stop" />
         </RelativeLayout>
     </RelativeLayout>
-
-</RelativeLayout>
+-->
+</com.placelook.controls.ExRelativeLayout>

@@ -36,9 +36,9 @@ public class Login extends BaseFragment {
     public void onViewCreated(View view, Bundle saved) {
         super.onViewCreated(view, saved);
         edLogin = (EditText) rView.findViewById(R.id.edEmail);
-        edLogin.setText("dvictor74@gmail.com");
+        //edLogin.setText("dvictor74@gmail.com");
         edPassword = (EditText) rView.findViewById(R.id.edPassword);
-        edPassword.setText("Vestern74");
+        //edPassword.setText("Vestern74");
         cbSave = (CheckBox) rView.findViewById(R.id.cbSave);
         final boolean bSave = cbSave.isChecked();
         bLogin = (Button) rView.findViewById(R.id.bLogin);

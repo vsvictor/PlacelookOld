@@ -48,7 +48,7 @@ public class ExFrameLayout extends FrameLayout {
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
-    public void showKeyboadr(){
+    public void showKeyboard(){
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (imm != null) {
             imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);

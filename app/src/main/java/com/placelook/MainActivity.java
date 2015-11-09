@@ -1,10 +1,14 @@
 package com.placelook;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -14,7 +18,12 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.placelook.commands.BaseCommand;
@@ -28,6 +37,9 @@ import com.placelook.pages.fragments.OnEndSession;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+//import org.bytedeco.javacv.FFmpegFrameGrabber;
+//import org.bytedeco.javacv.FFmpegFrameRecorder;
+//import org.bytedeco.javacv.FrameGrabber;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,11 +62,12 @@ public class MainActivity extends Activity {
     private boolean active;
     private NetService netService;
     public static String last_command;
+    public static Dialog waitDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View decorView = getWindow().getDecorView();
-        decorView.setBackground(getResources().getDrawable(R.drawable.rect_blue));
+        //View decorView = getWindow().getDecorView();
+        //decorView.setBackground(getResources().getDrawable(R.drawable.rect_blue));
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.main);
         instance = this;
@@ -76,7 +89,46 @@ public class MainActivity extends Activity {
             public void onServiceDisconnected(ComponentName name) {
             }
         }, BIND_AUTO_CREATE);
+/*
+        try {
+            FFmpegFrameRecorder.tryLoad();
+            FFmpegFrameGrabber.tryLoad();
+            Log.i(TAG, "Librari loaded");
+        }
+        catch (FrameGrabber.Exception ex1){}
+        catch (FFmpegFrameRecorder.Exception ex2){}
+*/
         helper.welcome();
+        showDialog(Constants.ID_WAIT_DIALOG);
+    }
+    @Override
+    protected Dialog onCreateDialog(int id){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view;
+        ImageView iv = null;
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.waiting_rotate);
+        if(id == Constants.ID_WAIT_DIALOG) {
+            view = getLayoutInflater().inflate(R.layout.wait_dialog, null);
+            builder.setView(view);
+            iv = (ImageView) view.findViewById(R.id.ivWait);
+            iv.startAnimation(anim);
+        }
+        else if(id == Constants.ID_WAIT_CANCEL){
+            view = getLayoutInflater().inflate(R.layout.cancel_dialog, null);
+            builder.setView(view);
+            iv = (ImageView) view.findViewById(R.id.ivWaitCancel);
+            RelativeLayout bCancel = (RelativeLayout) view.findViewById(R.id.bCancel);
+            bCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    waitDialog.cancel();
+                    MainActivity.getMainActivity().dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+                }
+            });
+        }
+        iv.startAnimation(anim);
+        waitDialog = builder.create();
+        return waitDialog;
     }
     @Override
     public void onResume(){
@@ -134,6 +186,7 @@ public class MainActivity extends Activity {
         IntentFilter startFilter = new IntentFilter();
         //startFilter.addAction("welcome");
         startFilter.addAction("user_login");
+        startFilter.addAction("user_logout");
         startFilter.addAction("user_register");
         registerReceiver(startReceiver, startFilter);
 
@@ -151,6 +204,7 @@ public class MainActivity extends Activity {
     @Override
     public void onDestroy(){
         super.onDestroy();
+        getHelper().logout();
         Intent intent = new Intent(this, NetService.class);
         intent.putExtra("obj", "stop");
         startService(intent);
@@ -160,6 +214,7 @@ public class MainActivity extends Activity {
         Fragment f = getFragmentManager().findFragmentById(R.id.rlMainFragment);
         if(f instanceof EndSession) return;
         else if(f instanceof Main){
+            getHelper().logout();
             finish();
             System.exit(0);
         }
@@ -168,6 +223,7 @@ public class MainActivity extends Activity {
         }
         else super.onBackPressed();
     }
+/*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, null);
@@ -177,6 +233,7 @@ public class MainActivity extends Activity {
         es.setArguments(b);
         getFragmentManager().beginTransaction().replace(R.id.rlMainFragment, es).commit();
     }
+*/
     public static MainActivity getMainActivity(){
         return instance;
     }
@@ -192,7 +249,7 @@ public class MainActivity extends Activity {
                 if(status == 1 && (obj.getString("callback").equals("start"))){
                         log.info("started");
                         helper.welcome();
-                        unregisterReceiver(first);
+                        //unregisterReceiver(first);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -208,7 +265,7 @@ public class MainActivity extends Activity {
                 int status = obj.getInt("status_code");
                 if(status == 1 && (obj.getString("callback").equals("welcome"))){
                     helper.login();
-                    unregisterReceiver(welc);
+                    //unregisterReceiver(welc);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -276,10 +333,10 @@ public class MainActivity extends Activity {
                     helper.login();
                 }
                 else if((status == 1) && (obj.getString("callback").equals("user_logout"))) {
-                    //getAccount().setTypeAccount(false);
-                    //getAccount().login(false);
-                    //getAccount().loadTemp();
-                    //helper.welcome();
+                    getAccount().setTypeAccount(false);
+                    getAccount().login(false);
+                    getAccount().loadTemp();
+                    helper.welcome();
                 }
                 else{
                     log.info(TAG+":"+"Error: "+obj.toString());

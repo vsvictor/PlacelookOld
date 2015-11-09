@@ -30,7 +30,7 @@ import com.placelook.video.RecordActivity;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.bytedeco.javacpp.presets.opencv_core;
+//import org.bytedeco.javacpp.presets.opencv_core;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -230,6 +230,7 @@ public class Operator extends BaseFragment {
                 inc.setOnAccept(new OnAcceptListener() {
                     @Override
                     public void onAccept(int slot) {
+                        inc.stop();
                         MainActivity.getMainActivity().getHelper().slotConfirm(slot);
                     }
                     @Override
@@ -246,7 +247,7 @@ public class Operator extends BaseFragment {
                         remove(ws).
                         remove(wm).
                         add(R.id.llOperator, inc).
-                        commit();
+                        commitAllowingStateLoss();
             } catch (JSONException e) {
                 e.printStackTrace();
             } catch (Exception e){

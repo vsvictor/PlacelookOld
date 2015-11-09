@@ -82,6 +82,11 @@ public class NetService extends Service {
                             obj.put("callback","client_session_action");
                             sCallBack = "client_session_action";
                         }
+                        else if(obj.getString("cmd").equals("client_session_close")){
+                            obj.put("callback","client_session_action");
+                            sCallBack = "client_session_close";
+                        }
+
                         Intent res = new Intent(sCallBack);
                         res.putExtra("command", obj.toString());
                         sendBroadcast(res);

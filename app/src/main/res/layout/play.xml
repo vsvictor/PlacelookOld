@@ -6,20 +6,19 @@
     tools:context=".PlayActivity" >
 
     <io.vov.vitamio.widget.CenterLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <SurfaceView
+        <io.vov.vitamio.widget.VideoView
             android:id="@+id/surface"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_gravity="center" >
-        </SurfaceView>
-
-    </io.vov.vitamio.widget.CenterLayout>
-
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true" />
+    </io.vov.vitamio.widget.CenterLayout><!--
     <RelativeLayout
         android:id="@+id/bottomClient"
         android:layout_width="match_parent"
@@ -230,5 +229,5 @@
         android:id="@+id/ivClienStopOperator"
         android:src="@drawable/stop_operator"
         android:layout_centerInParent="true" />
-
+-->
 </RelativeLayout>

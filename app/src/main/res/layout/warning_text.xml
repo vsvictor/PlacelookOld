@@ -64,10 +64,15 @@
             android:textSize="28sp" />
     </RelativeLayout>
     <RelativeLayout
+        android:layout_below="@id/rlForYourSafety"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
+
+    <RelativeLayout
         android:id="@+id/rlWarning1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rlForYourSafety"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
@@ -138,5 +143,5 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
     </RelativeLayout>
-
+    </RelativeLayout>
 </LinearLayout>

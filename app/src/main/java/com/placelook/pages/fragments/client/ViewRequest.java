@@ -17,6 +17,10 @@ import com.placelook.MainActivity;
 import com.placelook.R;
 import com.placelook.pages.fragments.BaseFragment;
 import com.placelook.video.PlayActivity;
+import com.placelook.video.PlayActivityVitamIO;
+import com.placelook.video.VitamPlayer;
+//import com.placelook.video.PlayActivityIO;
+//import com.placelook.video.PlayActivityVitamIO;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -82,6 +86,7 @@ public class ViewRequest extends BaseFragment {
         public void onReceive(Context context, Intent intent) {
             String command = intent.getExtras().getString("command");
             try {
+                MainActivity.waitDialog.cancel();
                 JSONObject obj = new JSONObject(command);
                 JSONObject param = obj.getJSONObject("param");
                 String url = param.getString("url");

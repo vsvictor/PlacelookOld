@@ -88,6 +88,7 @@ public class Footer extends BaseFragment {
                 acc.setBalance(param.getInt("balance"));
                 acc.setEmail(param.getString("email"));
                 setBalance(acc.getBalance());
+                MainActivity.waitDialog.cancel();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

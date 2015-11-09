@@ -93,4 +93,5 @@ public class Header extends BaseFragment {
         this.uListener = listener;
     }
     public void setOnHeaderClickListener(OnClick listener){this.press = listener;}
+    public OnClick getOnHeaderClickListener(){return this.press;}
 }

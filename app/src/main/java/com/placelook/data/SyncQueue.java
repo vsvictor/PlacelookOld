@@ -3,6 +3,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class SyncQueue {
 	private ConcurrentLinkedQueue list;
+	private SyncQueueOnChange listener;
 
 	public SyncQueue(){
 		list = new ConcurrentLinkedQueue();
@@ -10,9 +11,12 @@ public class SyncQueue {
 	
 	public void push(Object v) {
 		list.add(v);
+        if(listener != null) listener.onAdded();
 	}
 	public Object pop() {
-		return list.poll();
+		Object obj = list.poll();
+		if(listener != null) listener.onDeleted();
+		return obj;
 	}
 
 	public boolean isEmpty() {
@@ -23,5 +27,6 @@ public class SyncQueue {
 	}
 	public void clear(){
 		list.removeAll(list);
-	}	
+	}
+	public void setOnAdded(SyncQueueOnChange add){this.listener = add;}
 }

@@ -1,6 +1,7 @@
 package com.placelook.video;
 
 import com.placelook.data.SyncQueue;
+import com.placelook.data.SyncQueueOnChange;
 
 import org.apache.log4j.Logger;
 import org.bytedeco.javacpp.opencv_core.IplImage;
@@ -8,6 +9,7 @@ import org.bytedeco.javacv.FFmpegFrameRecorder;
 import org.bytedeco.javacv.Frame;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class VSRecorder extends FFmpegFrameRecorder {
 	private VSRecorder instance;
@@ -29,39 +31,38 @@ public class VSRecorder extends FFmpegFrameRecorder {
 	@Override
 	public void start() throws Exception {
 		super.start();
+		list.setOnAdded(new SyncQueueOnChange() {
+			@Override
+			public void onAdded() {
+				Log.i("VSRecorder","Size list: "+list.size());
+			}
+
+			@Override
+			public void onDeleted() {
+				Log.i("VSRecorder","Size list: "+list.size());
+			}
+		});
 		if (th != null && th.isAlive())
 			return;
 		th = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				th.setPriority(Thread.MAX_PRIORITY);
-				//android.os.Process.setThreadPriority(Thread.MAX_PRIORITY);
-				while (!stoped) {
-					Frame cl;
-					if (list.isEmpty()) {
-						try {
-							th.sleep(100);
-							logger.info("sleep...");
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						continue;
-					}
-					logger.info(list.size());
-					cl = (Frame) list.pop();
-					if (cl != null) {
-						try {
-							record(cl);
-							count++;
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
+			while (!stoped) {
+				if (!list.isEmpty()) try {
+					rec.record((Frame) list.pop());
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				return;
+				else try {
+					Thread.sleep(100);
+					continue;
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 			}
 		});
-		// th.setPriority(Thread.MAX_PRIORITY);
+		th.setPriority(Thread.MAX_PRIORITY);
 		th.start();
 	}
 
@@ -99,7 +100,7 @@ public class VSRecorder extends FFmpegFrameRecorder {
 	}
 
 	public void toStream(Frame aFrame) {
-		if (aFrame != null && aFrame.image != null) {
+		if (aFrame != null) {
 			list.push(aFrame);
 		}
 	}

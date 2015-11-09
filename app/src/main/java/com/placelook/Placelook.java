@@ -5,6 +5,7 @@ import com.placelook.commands.CreateSlotCommand;
 import com.placelook.commands.ListCitiesCommand;
 import com.placelook.commands.ListCountriesCommand;
 import com.placelook.commands.Login;
+import com.placelook.commands.Logout;
 import com.placelook.commands.Ping;
 import com.placelook.commands.Registration;
 import com.placelook.commands.SessionActionCommand;
@@ -46,6 +47,7 @@ public class Placelook {
         command.send(act);
         counter++;
         log.info(TAG + ":" + "Sended " + command.getName());
+        log.info(TAG + ":" + "Text: " + command.toString());
     }
     public void login(String sLogin, String sPassword, boolean bSave){
         sLog= sLogin;
@@ -55,16 +57,15 @@ public class Placelook {
         command.send(act);
         counter++;
         log.info(TAG + ":" + "Sended " + command.getName());
+        log.info(TAG + ":" + "Text: " + command.toString());
     }
     public void logout(){
-       /*
         Logout command = new Logout(counter);
-        command.send(this);
+        command.send(act);
         counter++;
         log.info(TAG+":"+"Sended " + command.getName());
-        */
-        act.getAccount().loadTemp();
-        welcome();
+/*        act.getAccount().loadTemp();
+        welcome();*/
     }
     public void registration(){
         Registration command = new Registration(counter,act.getAccount());
