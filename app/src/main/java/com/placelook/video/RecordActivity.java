@@ -56,7 +56,7 @@ public class RecordActivity extends Activity{
 
     private boolean isPreviewOn = false;
 
-    private int sampleAudioRateInHz = 44100;
+    private int sampleAudioRateInHz = 8000;//44100;
     private int imageWidth = 320;
     private int imageHeight = 240;
     private int frameRate = 30;
@@ -66,7 +66,7 @@ public class RecordActivity extends Activity{
     private AudioRecord audioRecord;
     private AudioRecordRunnable audioRecordRunnable;
     private Thread audioThread;
-    volatile boolean runAudioThread = true;
+    volatile boolean runAudioThread = false;
 
     /* video data getting thread */
     private Camera cameraDevice;
@@ -206,7 +206,7 @@ public class RecordActivity extends Activity{
     //---------------------------------------
     private void initRecorder() {
 
-        Log.w(LOG_TAG,"init recorder");
+        Log.w(LOG_TAG, "init recorder");
 
         if (RECORD_LENGTH > 0) {
             imagesIndex = 0;
@@ -224,14 +224,16 @@ public class RecordActivity extends Activity{
         Log.i(LOG_TAG, "ffmpeg_url: " + ffmpeg_link);
         recorder = new FFmpegFrameRecorder(ffmpeg_link, imageWidth, imageHeight, 1);
         recorder.setFormat("flv");
-        recorder.setSampleRate(sampleAudioRateInHz);
         recorder.setFrameRate(frameRate);
-        recorder.setVideoQuality(25);
+        //recorder.setVideoQuality(30);
         recorder.setInterleaved(true);
         recorder.setVideoBitrate(bitRate);
         recorder.setVideoCodec(avcodec.AV_CODEC_ID_H264);
-        recorder.setAudioCodec(avcodec.AV_CODEC_ID_AAC);
 
+        recorder.setAudioCodec(avcodec.AV_CODEC_ID_AAC);
+        recorder.setSampleRate(sampleAudioRateInHz);
+        recorder.setAudioBitrate(64000);
+        recorder.setAudioChannels(1);
         recorder.setPixelFormat(avutil.AV_PIX_FMT_YUV420P);
         recorder.setVideoOption("preset", "ultrafast");
         recorder.setVideoOption("tune", "zerolatency");
@@ -241,7 +243,12 @@ public class RecordActivity extends Activity{
         recorder.setVideoOption("rtbufsize", "0");
         recorder.setVideoOption("analyzeduration", "0");
         recorder.setVideoOption("probesize", "32");
+/*
+        recorder.setVideoOption("audio-sync", "");
 
+        recorder.setAudioOption("bsf:a", "aac_adtstoasc");
+        recorder.setAudioOption("desync", "10");
+*/
         Log.i(LOG_TAG, "recorder initialize success");
 
         audioRecordRunnable = new AudioRecordRunnable();
@@ -362,7 +369,7 @@ public class RecordActivity extends Activity{
 
             bufferSize = AudioRecord.getMinBufferSize(sampleAudioRateInHz, 
                     AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
-            audioRecord = new AudioRecord(MediaRecorder.AudioSource.MIC, sampleAudioRateInHz, 
+            audioRecord = new AudioRecord(MediaRecorder.AudioSource.CAMCORDER, sampleAudioRateInHz,
                     AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize);
 
             if (RECORD_LENGTH > 0) {
@@ -393,6 +400,7 @@ public class RecordActivity extends Activity{
                     // Why?  Good question...
                     if (recording) {
                         if (RECORD_LENGTH <= 0) try {
+
                             recorder.recordSamples(audioData);
                             //Log.v(LOG_TAG,"recording " + 1024*i + " to " + 1024*i+1024);
                         } catch (FFmpegFrameRecorder.Exception e) {

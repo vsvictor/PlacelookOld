@@ -33,7 +33,8 @@ public class PlayActivity extends Activity {
     private PlayActivity instance;
     private PowerManager.WakeLock mWakeLock;
     private ExRelativeLayout rlPlayer;
-    private SurfaceView surface;
+    //private SurfaceView surface;
+    private ImageView iv;
     private FFMpegPlayer player;
     //private Thread plThread;
     @Override
@@ -53,12 +54,14 @@ public class PlayActivity extends Activity {
 
         rlPlayer = (ExRelativeLayout) findViewById(R.id.rlPlayer);
         rlPlayer.hideKeyboard();
-        surface = (SurfaceView) findViewById(R.id.surface);
+        //surface = (SurfaceView) findViewById(R.id.surface);
+        iv = (ImageView) findViewById(R.id.iv);
         player = new FFMpegPlayer(this, channel);
         player.setSampleRate(sampleAudioRateInHz);
         player.setFrameRate(frameRate);
         player.setRotate(FFMpegRotate.ROTATE_90);
-        player.setSurfaceHolder(surface.getHolder());
+        //player.setSurfaceHolder(surface.getHolder());
+        player.setDrawer(iv);
     }
     public void onResume() {
         super.onResume();

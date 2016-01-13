@@ -437,7 +437,7 @@ public class PlayActivityOld extends Activity {
 
 				//AudioFormat audioFormat = new AudioFormat(grabber.getSampleRate(), 16, grabber.getAudioChannels(), true, true);
 
-				//AndroidAudioDevice dev = new AndroidAudioDevice(sampleAudioRateInHz,1);
+				//AudioDevice dev = new AudioDevice(sampleAudioRateInHz,1);
 
 				try {
                     grabber.start();

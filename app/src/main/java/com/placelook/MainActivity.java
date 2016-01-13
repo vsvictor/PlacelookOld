@@ -1,6 +1,5 @@
 package com.placelook;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -8,16 +7,13 @@ import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -27,7 +23,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.placelook.commands.BaseCommand;
-import com.placelook.commands.Login;
 import com.placelook.pages.MainPage;
 import com.placelook.pages.fragments.Claim;
 import com.placelook.pages.fragments.EndSession;
@@ -35,19 +30,10 @@ import com.placelook.pages.fragments.Main;
 import com.placelook.pages.fragments.OnClaim;
 import com.placelook.pages.fragments.OnEndSession;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-//import org.bytedeco.javacv.FFmpegFrameGrabber;
-//import org.bytedeco.javacv.FFmpegFrameRecorder;
-//import org.bytedeco.javacv.FrameGrabber;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.net.URISyntaxException;
-
-import de.mindpipe.android.logging.log4j.LogConfigurator;
 
 
 public class MainActivity extends Activity {
@@ -57,7 +43,6 @@ public class MainActivity extends Activity {
     private EndSession es;
     private Claim claim;
     private Account acc;
-    private static Logger log;
     private static Placelook helper;
     private boolean active;
     private NetService netService;
@@ -71,7 +56,6 @@ public class MainActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.main);
         instance = this;
-        log = createLogger();
         acc = new Account(this);
         acc.load();
         helper = new Placelook(this);
@@ -247,7 +231,6 @@ public class MainActivity extends Activity {
                 obj = new JSONObject(intent.getExtras().getString("command"));
                 int status = obj.getInt("status_code");
                 if(status == 1 && (obj.getString("callback").equals("start"))){
-                        log.info("started");
                         helper.welcome();
                         //unregisterReceiver(first);
                 }
@@ -280,24 +263,6 @@ public class MainActivity extends Activity {
             Toast.makeText(getMainActivity(),st,Toast.LENGTH_LONG).show();
         }
     };
-    private Logger createLogger(){
-        LogConfigurator logConfigurator = new LogConfigurator();
-        logConfigurator.setFileName(Environment.getExternalStorageDirectory()
-                + File.separator + "placelook.txt");
-        logConfigurator.setRootLevel(Level.DEBUG);
-        logConfigurator.setLevel("org.apache", Level.ALL);
-        logConfigurator.setFilePattern("%d %-5p [%c{2}]-[%L] %m%n");
-        logConfigurator.setMaxFileSize(1024 * 1024 * 5);
-        logConfigurator.setImmediateFlush(true);
-        logConfigurator.configure();
-        Logger logger = Logger.getLogger(String.valueOf(MainActivity.class));
-        return logger;
-    }
-    public Logger getLogger(){
-        return log;
-    }
-
-
     private BroadcastReceiver startReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -337,9 +302,6 @@ public class MainActivity extends Activity {
                     getAccount().login(false);
                     getAccount().loadTemp();
                     helper.welcome();
-                }
-                else{
-                    log.info(TAG+":"+"Error: "+obj.toString());
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

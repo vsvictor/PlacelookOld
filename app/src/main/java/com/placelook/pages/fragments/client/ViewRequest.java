@@ -17,10 +17,6 @@ import com.placelook.MainActivity;
 import com.placelook.R;
 import com.placelook.pages.fragments.BaseFragment;
 import com.placelook.video.PlayActivity;
-import com.placelook.video.PlayActivityVitamIO;
-import com.placelook.video.VitamPlayer;
-//import com.placelook.video.PlayActivityIO;
-//import com.placelook.video.PlayActivityVitamIO;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -93,6 +89,7 @@ public class ViewRequest extends BaseFragment {
                 int idSession = param.getInt("id");
                 String role = param.getString("role");
                 Intent in = new Intent(MainActivity.getMainActivity(), PlayActivity.class);
+                //Intent in = new Intent(MainActivity.getMainActivity(), PlayActivityVitamIO.class);
                 in.putExtra("idSession", idSession);
                 in.putExtra("url", url);
                 in.putExtra("role", role);

@@ -28,8 +28,8 @@ import com.placelook.pages.fragments.operator.WarningContinue;
 import com.placelook.pages.fragments.operator.WarningText;
 import com.placelook.video.RecordActivity;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Level;
+//import org.apache.log4j.Logger;
 //import org.bytedeco.javacpp.presets.opencv_core;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +39,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import de.mindpipe.android.logging.log4j.LogConfigurator;
+//import de.mindpipe.android.logging.log4j.LogConfigurator;
 
 /**
  * Created by victor on 14.07.15.
@@ -58,7 +58,7 @@ public class Operator extends BaseFragment {
     private int slot;
     private int sec;
     private String goal;
-    private Logger log;
+//    private Logger log;
     @Override
     public void onCreate(Bundle saved) {
         super.onCreate(saved);
@@ -75,7 +75,7 @@ public class Operator extends BaseFragment {
         } catch (Exception e) {
 
         }
-        log = createLogger();
+//        log = createLogger();
     }
 
     public View onCreateView(LayoutInflater inf, ViewGroup container, Bundle savedInstanceState) {
@@ -252,7 +252,7 @@ public class Operator extends BaseFragment {
                 e.printStackTrace();
             } catch (Exception e){
                 e.printStackTrace();;
-                log.info(e.getMessage());
+                //log.info(e.getMessage());
             }
         }
     };
@@ -308,7 +308,7 @@ public class Operator extends BaseFragment {
             }
         }
     };
-
+/*
     private Logger createLogger(){
         LogConfigurator logConfigurator = new LogConfigurator();
         logConfigurator.setFileName(Environment.getExternalStorageDirectory()
@@ -322,4 +322,5 @@ public class Operator extends BaseFragment {
         Logger logger = Logger.getLogger(String.valueOf(MainActivity.class));
         return logger;
     }
+*/
 }

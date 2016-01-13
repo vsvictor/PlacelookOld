@@ -3,7 +3,7 @@ package com.placelook.video;
 import com.placelook.data.SyncQueue;
 import com.placelook.data.SyncQueueOnChange;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.bytedeco.javacv.FFmpegFrameRecorder;
 import org.bytedeco.javacv.Frame;
@@ -16,7 +16,7 @@ public class VSRecorder extends FFmpegFrameRecorder {
 	private Thread th;
 	private volatile IplImage im;
 	private boolean stoped = false;
-	private Logger logger;
+//	private Logger logger;
 	private int count = 0;
 	private SyncQueue list;
 	private static VSRecorder rec;
@@ -24,7 +24,7 @@ public class VSRecorder extends FFmpegFrameRecorder {
 	public VSRecorder(String filename, int width, int height, int audioChannels) {
 		super(filename, width, height, audioChannels);
 		list = new SyncQueue();
-		logger = Logger.getLogger(VSRecorder.class);
+//		logger = Logger.getLogger(VSRecorder.class);
 		rec = this;
 	}
 
@@ -69,7 +69,7 @@ public class VSRecorder extends FFmpegFrameRecorder {
 	@Override
 	public void stop() throws Exception {
 		stoped = true;
-		logger.info("Send cadrs: " + String.valueOf(count));
+//		logger.info("Send cadrs: " + String.valueOf(count));
 		try {
 			th.join();
 		} catch (InterruptedException e) {

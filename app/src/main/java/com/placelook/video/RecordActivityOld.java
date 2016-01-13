@@ -54,8 +54,8 @@ import java.nio.ByteBuffer;
 import java.nio.ShortBuffer;
 import java.util.List;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Level;
+//import org.apache.log4j.Logger;
 import org.bytedeco.javacpp.avcodec;
 import org.bytedeco.javacpp.avformat;
 import org.bytedeco.javacpp.avutil;
@@ -72,7 +72,7 @@ import com.placelook.utils.BitmapUtils;
 import com.placelook.utils.VSFrameConvertor;
 import com.placelook.utils.YUVPicture;
 
-import de.mindpipe.android.logging.log4j.LogConfigurator;
+//import de.mindpipe.android.logging.log4j.LogConfigurator;
 
 import static org.bytedeco.javacpp.opencv_core.*;
 import static org.bytedeco.javacpp.opencv_imgproc.*;
@@ -153,7 +153,7 @@ public class RecordActivityOld extends Activity {
 */
 	private String channel;// = "rtmp://192.168.1.111/myapp?/sid538";
 	private int idSession;
-    private Logger log;
+//    private Logger log;
 	private VSFrameConvertor converter;
 	private YUVPicture picture;
 	private BitmapFactory.Options opt;
@@ -167,7 +167,7 @@ public class RecordActivityOld extends Activity {
 		instance = this;
 		Intent i = this.getIntent();
 		channel = i.getStringExtra("url");
-        log = createLogger();
+//        log = createLogger();
 		idSession = i.getIntExtra("idSession", -1);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.recorder);
@@ -257,7 +257,7 @@ public class RecordActivityOld extends Activity {
 		});
 		tvMessage = (TextView) findViewById(R.id.tvMessage);
   */
-        log.info("onCreate RecordActivity");
+//        log.info("onCreate RecordActivity");
 	}
 	@Override
 	protected void onResume() {
@@ -276,7 +276,7 @@ public class RecordActivityOld extends Activity {
 		IntentFilter ifClose = new IntentFilter();
 		ifClose.addAction("client_session_close");
 		registerReceiver(recClose, ifClose);
-        log.info("onResume RecordActivity");
+//        log.info("onResume RecordActivity");
 	}
 	@Override
 	protected void onPause() {
@@ -287,7 +287,7 @@ public class RecordActivityOld extends Activity {
 		}
 		unregisterReceiver(client);
 		unregisterReceiver(recClose);
-        log.info("onPause RecordActivity");
+//        log.info("onPause RecordActivity");
 	}
 	@Override
 	protected void onDestroy() {
@@ -307,7 +307,7 @@ public class RecordActivityOld extends Activity {
 			mWakeLock.release();
 			mWakeLock = null;
 		}
-        log.info("onDestroy RecordActivity");
+//        log.info("onDestroy RecordActivity");
 	}
 	protected void setDisplayOrientation(Camera camera, int angle) {
 		Method downPolymorphic;
@@ -317,9 +317,9 @@ public class RecordActivityOld extends Activity {
 			if (downPolymorphic != null)
 				downPolymorphic.invoke(camera, new Object[] { angle });
 		} catch (Exception e) {
-            log.info(e.getMessage());
+//            log.info(e.getMessage());
 		}
-        log.info("setDisplayOrientation RecordActivity");
+//        log.info("setDisplayOrientation RecordActivity");
 	}
 	private void initLayout() {
 		Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE))
@@ -375,11 +375,11 @@ public class RecordActivityOld extends Activity {
 			cameraDevice.setParameters(campar);
 		}
 		catch (Exception ex){
-			log.info("Preview picture format: "+cameraDevice.getParameters().getPreviewFormat());
+//			log.info("Preview picture format: "+cameraDevice.getParameters().getPreviewFormat());
 		}
 		cameraView = new CameraView(this, cameraDevice);
 		topLayout.addView(cameraView, layoutParam);
-        log.info("initLayout RecordActivity");
+//        log.info("initLayout RecordActivity");
 	}
 	private void initRecorder() {
 		if (yuvIplimage == null) {
@@ -415,7 +415,7 @@ public class RecordActivityOld extends Activity {
 		audioThread = new Thread(audioRecordRunnable);
 		runAudioThread = true;
 
-		log.info("initRecorder RecordActivity");
+//		log.info("initRecorder RecordActivity");
 	}
 	public void startRecording() {
 
@@ -427,10 +427,10 @@ public class RecordActivityOld extends Activity {
 
 		} catch (FFmpegFrameRecorder.Exception e) {
 			e.printStackTrace();
-            log.info(e.getMessage());
+//            log.info(e.getMessage());
 
 		}
-        log.info("starrRecording RecordActivity");
+//        log.info("starrRecording RecordActivity");
 	}
 	public void stopRecording() {
 		runAudioThread = false;
@@ -438,7 +438,7 @@ public class RecordActivityOld extends Activity {
 			audioThread.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-            log.info(e.getMessage());
+  //          log.info(e.getMessage());
 		}
 		audioRecordRunnable = null;
 		audioThread = null;
@@ -449,11 +449,11 @@ public class RecordActivityOld extends Activity {
 				recorder.release();
 			} catch (FFmpegFrameRecorder.Exception e) {
 				e.printStackTrace();
-                log.info(e.getMessage());
+//                log.info(e.getMessage());
 			}
 			recorder = null;
 		}
-        log.info("stopRecording RecordActivity");
+//        log.info("stopRecording RecordActivity");
 	}
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -462,11 +462,11 @@ public class RecordActivityOld extends Activity {
 			if (recording) {
 				stopRecording();
 			}
-            log.info("onKeyDown finish RecordActivity");
+//            log.info("onKeyDown finish RecordActivity");
 			finish();
 			return true;
 		}
-        log.info("onKeyDown RecordActivity");
+//        log.info("onKeyDown RecordActivity");
 		return super.onKeyDown(keyCode, event);
 	}
 	@Override
@@ -479,7 +479,7 @@ public class RecordActivityOld extends Activity {
 			this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 			this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		}
-        log.info("onConfigurationChanged RecordActivity");
+//        log.info("onConfigurationChanged RecordActivity");
 	}
 	class AudioRecordRunnable implements Runnable {
 		@Override
@@ -502,7 +502,7 @@ public class RecordActivityOld extends Activity {
 			}*/
 			audioData = new short[bufferSize];
 			audioRecord.startRecording();
-            log.info("startAudio RecordActivity");
+//            log.info("startAudio RecordActivity");
 			while (runAudioThread) {
 				bufferReadResult = audioRecord.read(audioData, 0,
 						audioData.length);
@@ -513,12 +513,12 @@ public class RecordActivityOld extends Activity {
 									0, bufferReadResult));
 						} catch (FFmpegFrameRecorder.Exception e) {
 							e.printStackTrace();
-                            log.info(e.getMessage());
+//                            log.info(e.getMessage());
 						}
 					}
 				}
 			}
-            log.info("end audio cycle RecordActivity");
+//            log.info("end audio cycle RecordActivity");
 			if (audioRecord != null) {
 				audioRecord.stop();
 				audioRecord.release();
@@ -539,7 +539,7 @@ public class RecordActivityOld extends Activity {
 			mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 			mCamera.setPreviewCallback(CameraView.this);
 			//q = new ArrayDeque<IplImage>();
-            log.info("CameraView constructor RecordActivity");
+//            log.info("CameraView constructor RecordActivity");
 		}
 
 		@Override
@@ -552,9 +552,9 @@ public class RecordActivityOld extends Activity {
 			} catch (IOException exception) {
 				mCamera.release();
 				mCamera = null;
-                log.info(exception.getMessage());
+//                log.info(exception.getMessage());
 			}
-            log.info("surfaceCreated RecordActivity");
+//            log.info("surfaceCreated RecordActivity");
 		}
 		public void surfaceChanged(SurfaceHolder holder, int format, int width,int height) {
 			//Camera.Parameters camParams = mCamera.getParameters();
@@ -564,7 +564,7 @@ public class RecordActivityOld extends Activity {
 			//camParams.setPreviewFrameRate(frameRate);
 			//mCamera.setParameters(camParams);
 			startPreview();
-            log.info("surfaceChanged RecordActivity");
+//            log.info("surfaceChanged RecordActivity");
 		}
 		@Override
 		public void surfaceDestroyed(SurfaceHolder holder) {
@@ -572,9 +572,9 @@ public class RecordActivityOld extends Activity {
 				mHolder.addCallback(null);
 				mCamera.setPreviewCallback(null);
 			} catch (RuntimeException e) {
-                log.info(e.getMessage());
+//                log.info(e.getMessage());
 			}
-            log.info("surfaceDestroyed RecordActivity");
+//            log.info("surfaceDestroyed RecordActivity");
 		}
 
 		public void startPreview() {
@@ -588,7 +588,7 @@ public class RecordActivityOld extends Activity {
 				isPreviewOn = false;
 				mCamera.stopPreview();
 			}
-            log.info("stopPreview RecordActivity");
+//            log.info("stopPreview RecordActivity");
 		}
 		@Override
 		public void onPreviewFrame(byte[] data, Camera camera) {
@@ -626,14 +626,14 @@ public class RecordActivityOld extends Activity {
 			JSONObject obj = new JSONObject(com);
 			JSONObject data = obj.getJSONObject("param");
 			String command = data.getString("type");
-            log.info(com);
+//            log.info(com);
 			if(command.equals(Actions.TEXT)){
 				message = data.getString("msg");
 			}
 			//blink(command, message);
 		} catch (JSONException e) {
 			e.printStackTrace();
-            log.info(e.getMessage());
+//            log.info(e.getMessage());
 		}
 	}
 	};
@@ -695,7 +695,7 @@ public class RecordActivityOld extends Activity {
 	@Override
 	public void onBackPressed() {
 	}
-
+/*
     private Logger createLogger(){
         LogConfigurator logConfigurator = new LogConfigurator();
         logConfigurator.setFileName(Environment.getExternalStorageDirectory()
@@ -709,4 +709,5 @@ public class RecordActivityOld extends Activity {
         Logger logger = Logger.getLogger(String.valueOf(RecordActivity.class));
         return logger;
     }
+*/
 }

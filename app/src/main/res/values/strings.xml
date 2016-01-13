@@ -88,4 +88,6 @@
     <string name="in_case">In Case of ... any text</string>
 
     <string name="please_wait">Please wait...</string>
+    <string name="back_title">Back</string>
+    <string name="buffering">Buffering</string>
 </resources>
