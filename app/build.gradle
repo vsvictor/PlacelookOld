@@ -4,7 +4,14 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
-
+    signingConfigs {
+        debug {
+            storeFile file('/opt/keystore')
+            storePassword "Vestern74"
+            keyAlias "placelook"
+            keyPassword "ParAn0ik"
+        }
+    }
     defaultConfig {
         applicationId "com.placelook"
         minSdkVersion 14
