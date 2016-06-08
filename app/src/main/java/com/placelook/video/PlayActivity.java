@@ -1,11 +1,11 @@
 package com.placelook.video;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 
 import com.placelook.R;
 
-public class PlayActivity extends AppCompatActivity {
+public class PlayActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
