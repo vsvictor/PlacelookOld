@@ -56,6 +56,7 @@ public class NetworkUtils {
 	 *            true=return ipv4, false=return ipv6
 	 * @return address or empty string
 	 */
+
 	public static String getIPAddress(boolean useIPv4) {
 		try {
 			List<NetworkInterface> interfaces = Collections
