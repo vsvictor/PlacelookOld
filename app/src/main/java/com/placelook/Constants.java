@@ -6,7 +6,7 @@ package com.placelook;
 public class Constants {
     public static String appName = "Placelook";
     public static String Platforms = "android";
-    public static String server = "ws://placelook.mobi:8080";
+    public static String server = "ws://placelook.live:8080";
 
     public static int ID_WAIT_DIALOG = 1;
     public static int ID_WAIT_CANCEL = 2;
